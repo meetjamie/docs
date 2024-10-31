@@ -42,18 +42,18 @@
       "group": "Get Started",
       "pages": [
         "getting_started/quickstart",
-        "How to connect your calendar?",
-        "How to use headphones?",
-        "How to change language?",
-        "How to identify speakers?",
-        "How to use Jamie chat?",
-        "How to use headphones?",
-        "How to edit meeting notes?",
-        "How to share meeting notes?",
-        "How to use labels?",
-        "How to use templates?",
-        "How to use custom words?",
-        "How to use search in meetings?"
+        "getting_started/calendar",
+        "getting_started/headphones",
+        "getting_started/language",
+        "getting_started/identify_speaker",
+        "getting_started/jamie_chat",
+        "getting_started/search?",
+        "getting_started/edit_notes",
+        "getting_started/share_notes",
+        "getting_started/labels",
+        "getting_started/templates",
+        "getting_started/custom_words",
+        "getting_started/search"
       ]
     },
     {
