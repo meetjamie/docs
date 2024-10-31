@@ -41,7 +41,7 @@
     {
       "group": "Get Started",
       "pages": [
-        "Quickstart",
+        "getting_started/quickstart",
         "How to connect your calendar?",
         "How to use headphones?",
         "How to change language?",
