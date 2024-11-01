@@ -42,7 +42,7 @@
       "group": "Get Started",
       "pages": [
         "getting_started/quickstart",
-        "getting_started/calendar",
+        "getting_started/connect_calendar",
         "getting_started/headphones",
         "getting_started/language",
         "getting_started/identify_speaker",
