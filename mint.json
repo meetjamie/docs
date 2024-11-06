@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Jamie Help Center",
   "logo": {
-    "dark": "/logo/jamie_dark.svg",
-    "light": "/logo/jamie_light.png"
+    "dark": "/logo/jamie_light.png",
+    "light": "/logo/jamie_dark.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
