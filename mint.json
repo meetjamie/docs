@@ -67,13 +67,14 @@
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Billing & Pricing",
       "pages": [
-        "api-reference/introduction"
+        "billing_pricing/company_pricing",
+        "billing_pricing/invoices"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "TBD",
       "pages": [
         "api-reference/endpoint/get",
         "api-reference/endpoint/create",
