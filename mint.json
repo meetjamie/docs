@@ -59,12 +59,11 @@
     {
       "group": "FAQs & Troubeshooting",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "faqs_troubleshooting/update_jamie",
+        "faqs_troubleshooting/data",
+        "faqs_troubleshooting/language_support",
+        "faqs_troubleshooting/meeting_stuck",
+        "faqs_troubleshooting/credits"
       ]
     },
     {
