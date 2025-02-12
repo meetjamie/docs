@@ -39,20 +39,23 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "How to",
       "pages": [
         "getting_started/quickstart",
         "getting_started/connect_calendar",
+        "hidden": true,
         "getting_started/headphones",
         "getting_started/language",
+        "hidden": true,
         "getting_started/identify_speaker",
         "getting_started/jamie_chat",
+        "hidden": true,
         "getting_started/search?",
         "getting_started/edit_notes",
         "getting_started/share_notes",
-        "getting_started/labels",
+        "getting_started/folder",
         "getting_started/templates",
-        "getting_started/custom_words",
+        "hidden": true,
         "getting_started/search"
       ]
     },
