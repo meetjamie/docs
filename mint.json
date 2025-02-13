@@ -55,7 +55,6 @@
       "group": "FAQs & Troubeshooting",
       "pages": [
         "faqs_troubleshooting/data",
-        "faqs_troubleshooting/language_support",
         "faqs_troubleshooting/meeting_stuck",
         "faqs_troubleshooting/credits"
       ]
