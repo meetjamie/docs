@@ -22,15 +22,10 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Website",
-    "url": "https://www.meetjamie.ai"
+    "name": "App",
+    "url": "https://www.app.meetjamie.ai"
   },
   "anchors": [
-    {
-      "name": "Download",
-      "icon": "download",
-      "url": "https://www.meetjamie.ai/download"
-    },
     {
       "name": "Blog",
       "icon": "newspaper",
@@ -46,8 +41,7 @@
         "getting_started/headphones",
         "getting_started/identify_speaker",
         "getting_started/edit_notes",
-        "getting_started/share_notes",
-        "getting_started/folder",
+        "getting_started/tags",
         "getting_started/search"
       ]
     },
