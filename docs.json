@@ -7,7 +7,7 @@
     "light": "#885AEA",
     "dark": "#230E5F"
   },
-  "favicon": "/logo/jamie_favicon.svg",
+  "favicon": "/favicon.svg",
   "navigation": {
     "anchors": [
       {
