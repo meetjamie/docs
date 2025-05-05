@@ -1,0 +1,80 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Jamie Help Center",
+  "colors": {
+    "primary": "#5236C0",
+    "light": "#885AEA",
+    "dark": "#230E5F"
+  },
+  "favicon": "/logo/jamie_favicon",
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "How to",
+            "pages": [
+              "getting_started/quickstart",
+              "getting_started/connect_calendar",
+              "getting_started/headphones",
+              "getting_started/identify_speaker",
+              "getting_started/edit_notes",
+              "getting_started/tags",
+              "getting_started/search"
+            ]
+          },
+          {
+            "group": "FAQs & Troubeshooting",
+            "pages": [
+              "faqs_troubleshooting/data",
+              "faqs_troubleshooting/meeting_stuck",
+              "faqs_troubleshooting/subscriptions_plans"
+            ]
+          },
+          {
+            "group": "Billing & Pricing",
+            "pages": [
+              "billing_pricing/company_pricing",
+              "billing_pricing/invoices"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Blog",
+          "href": "https://www.meetjamie.ai/blog",
+          "icon": "newspaper"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/jamie_dark.svg",
+    "dark": "/logo/jamie_light.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@meetjamie.ai"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "App",
+      "href": "https://app.meetjamie.ai"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://twitter.com/meetjamie_ai",
+      "linkedin": "https://de.linkedin.com/company/meetjamie-ai"
+    }
+  }
+}
