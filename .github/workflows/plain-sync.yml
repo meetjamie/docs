@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install a stable version of sitemapper
-        run: npm install -g sitemapper@^6.0.0
-
       - name: Install Plain CLI
         run: npm install -g @team-plain/cli@latest
 
