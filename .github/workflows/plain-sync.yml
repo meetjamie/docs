@@ -2,12 +2,11 @@ name: Sync Docs to Plain on Mintlify Check Success
 
 on:
   check_run:
-    types: [completed] # Only run when a check run is completed
+    types: [completed]
 
 jobs:
   sync:
     name: Sync Documents to Plain
-    # Only run if the specific Mintlify check run was successful
     if: >
       github.event.check_run.name == 'Mintlify Deployment' &&
       github.event.check_run.conclusion == 'success' &&
@@ -23,7 +22,6 @@ jobs:
         run: npm install -g @team-plain/cli@latest
 
       - name: Index Documents
-        # Replace with your actual Mintlify sitemap URL
         run: plain index-sitemap https://docs.meetjamie.ai/
         env:
           PLAIN_API_KEY: ${{ secrets.PLAIN_API_KEY }} 
