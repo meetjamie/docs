@@ -57,7 +57,7 @@
     }
   },
   "logo": {
-    "light": "/logo/jamie_dark.svg",
+    "light": "/logo/jamie_dark.png",
     "dark": "/logo/jamie_light.svg"
   },
   "navbar": {
