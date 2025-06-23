@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Jamie Help Center",
+  "name": "Jamie Docs",
   "colors": {
     "primary": "#5236C0",
     "light": "#885AEA",
