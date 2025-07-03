@@ -7,7 +7,7 @@
     "light": "#885AEA",
     "dark": "#230E5F"
   },
-  "favicon": "/logo/jamie_favicon.svg",
+  "favicon": "/images/jamie_favicon.svg",
   "navigation": {
     "anchors": [
       {
@@ -17,31 +17,31 @@
           {
             "group": "How to",
             "pages": [
-              "getting_started/quickstart",
-              "getting_started/connect_calendar",
-              "getting_started/headphones",
-              "getting_started/identify_speaker",
-              "getting_started/edit_notes",
-              "getting_started/tags",
-              "getting_started/tasks",
-              "getting_started/copy_paste"
+              "pages/getting_started/quickstart",
+              "pages/getting_started/connect_calendar",
+              "pages/getting_started/headphones",
+              "pages/getting_started/identify_speaker",
+              "pages/getting_started/edit_notes",
+              "pages/getting_started/tags",
+              "pages/getting_started/tasks",
+              "pages/getting_started/copy_paste"
             ]
           },
           {
             "group": "FAQs & Troubeshooting",
             "pages": [
-              "faqs_troubleshooting/data",
-              "faqs_troubleshooting/meeting_stuck",
-              "faqs_troubleshooting/subscriptions_plans",
-              "faqs_troubleshooting/download_recorder",
-              "faqs_troubleshooting/language_support"
+              "pages/faqs_troubleshooting/data",
+              "pages/faqs_troubleshooting/meeting_stuck",
+              "pages/faqs_troubleshooting/subscriptions_plans",
+              "pages/faqs_troubleshooting/download_recorder",
+              "pages/faqs_troubleshooting/language_support"
             ]
           },
           {
             "group": "Billing & Pricing",
             "pages": [
-              "billing_pricing/company_pricing",
-              "billing_pricing/invoices"
+              "pages/billing_pricing/company_pricing",
+              "pages/billing_pricing/invoices"
             ]
           }
         ]
@@ -58,8 +58,8 @@
     }
   },
   "logo": {
-    "light": "/logo/jamie_dark.png",
-    "dark": "/logo/jamie_light.png"
+    "light": "/images/jamie_dark.png",
+    "dark": "/images/jamie_light.png"
   },
   "navbar": {
     "links": [
