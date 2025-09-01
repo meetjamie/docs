@@ -33,14 +33,13 @@
               "pages/faqs_troubleshooting/data",
               "pages/faqs_troubleshooting/meeting_stuck",
               "pages/faqs_troubleshooting/subscriptions_plans",
-              "pages/faqs_troubleshooting/download_recorder",
               "pages/faqs_troubleshooting/language_support"
             ]
           },
           {
             "group": "Billing & Pricing",
             "pages": [
-              "pages/billing_pricing/company_pricing",
+              "pages/billing_pricing/pricing_plans",
               "pages/billing_pricing/invoices"
             ]
           }
