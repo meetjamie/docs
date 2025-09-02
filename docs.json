@@ -15,7 +15,7 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Get started",
+            "group": "Getting started",
             "pages": [
               "pages/getting_started/quickstart",
               "pages/getting_started/connect_calendar",
