@@ -25,7 +25,8 @@
               "pages/getting_started/tags",
               "pages/getting_started/tasks",
               "pages/getting_started/integrations",
-              "pages/getting_started/copy_paste"
+              "pages/getting_started/copy_paste",
+              "pages/getting_started/ask_ai"
             ]
           },
           {
