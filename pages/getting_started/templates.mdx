@@ -3,32 +3,28 @@ title: "Templates"
 description: "Control how your meeting summaries are formatted with custom templates"
 ---
 
-## What this feature does
+## What are templates?
 
-Templates let you control how your meeting summaries look and what information they include. Instead of getting the same default format every time, you can choose or create templates that match how you work. This means you get summaries that are ready to use right away, with the sections and details you actually need.
+Templates let you control both the structure and the content of your meeting summaries.
+
+You define the sections and what should go into each one. That way, your summaries come out ready to use, with exactly the sections and details you need.
 
 ## When you'd use it
 
 <CardGroup cols={2}>
-  <Card title="Different meeting types" icon="calendar">
-    You run team syncs, one-on-ones, and client calls—and want a different format for each.
-  </Card>
-  <Card title="Consistent sales notes" icon="handshake">
-    You want every sales call summary to include action items and next steps.
-  </Card>
-  <Card title="Save time on formatting" icon="clock">
-    You find yourself copying and editing summaries into a specific format. A template can do that automatically.
-  </Card>
   <Card title="Team alignment" icon="users">
-    You want your meeting notes to match how your team already shares information.
+    You want every summary to look the same across the team so updates, decisions, and next steps are always easy to find.
+  </Card>
+  <Card title="Different meeting types" icon="calendar">
+    Standups, 1:1s, client calls, retros. Each gets its own format so people can skim for exactly what they care about.
+  </Card>
+  <Card title="Repeatable sales & CS calls" icon="handshake">
+    Every call captures pain points, objections, and next steps in the same structure-making follow-ups and handoffs effortless.
+  </Card>
+  <Card title="Less time fixing notes" icon="clock">
+    Instead of reformatting notes after every call, templates give you publish-ready summaries in one click.
   </Card>
 </CardGroup>
-
-## Before you start
-
-<Info>
-You don't need to set up anything special to use this feature. Templates are available from any meeting summary.
-</Info>
 
 ## How to use it
 
@@ -40,6 +36,13 @@ You don't need to set up anything special to use this feature. Templates are ava
   </Step>
   <Step title="Find the template dropdown">
     Look below the summary. You will see a dropdown showing the current template name (such as "Default").
+
+    <img
+      src="/images/templateDropdown.png"
+      alt="Jamie Template Dropdown"
+      className="rounded-lg"
+      style={{ width:"72%" }}
+    />
   </Step>
   <Step title="Choose a template">
     Click the dropdown to see your available templates. Click on any template to apply it.
@@ -49,17 +52,17 @@ You don't need to set up anything special to use this feature. Templates are ava
   </Step>
 </Steps>
 
-### Viewing all templates
+### Go back to the original summary
 
 <Steps>
-  <Step title="Open the template dropdown">
-    From any meeting summary, click on the template dropdown.
+  <Step title="Open the template menu">
+    Click the template dropdown at the top of your notes.
   </Step>
-  <Step title="Click View All Templates">
-    At the bottom of the dropdown, click **View All Templates**.
+  <Step title="Select Default">
+    Choose the template called **"Default"**.
   </Step>
-  <Step title="Browse templates">
-    Use the **Default** and **Personal** tabs to switch between pre-made templates and ones you have created. Click any template to see its details on the right side.
+  <Step title="Jamie restores your original summary">
+    Jamie remembers the original layout and switches your notes back to it.
   </Step>
 </Steps>
 
@@ -67,7 +70,7 @@ You don't need to set up anything special to use this feature. Templates are ava
 
 <Steps>
   <Step title="Start creating">
-    From the template dropdown, click **New template**. Or, from the templates window, click **New Template** in the sidebar.
+    From the template dropdown, click **New template**.
   </Step>
   <Step title="Choose your starting point">
     You can either click **start from scratch** to create a blank template, or select one of the default templates as a starting point (Jamie will make a copy for you to edit).
@@ -89,7 +92,7 @@ You don't need to set up anything special to use this feature. Templates are ava
 </Steps>
 
 <Tip>
-Your changes save automatically. No need to click a save button.
+  Your changes save automatically. No need to click a save button.
 </Tip>
 
 ### Duplicating a default template
@@ -145,8 +148,8 @@ If you like one of the pre-made templates but want to customize it:
   <Accordion title="Will applying a template change my transcript?">
     No. Templates only change how the summary is formatted. Your original transcript stays the same.
   </Accordion>
-  <Accordion title="Can I edit the default templates?">
-    Default templates are read-only. To customize one, use the **Duplicate** button to make your own copy, then edit that.
+  <Accordion title="Can I edit the templates provided by Jamie?">
+    To customize a Jamie created template, use the **Duplicate** button to make your own copy, then edit that.
   </Accordion>
   <Accordion title="Who can see my personal templates?">
     Personal templates are private to your account. Only you can see and use them.
@@ -162,11 +165,10 @@ If you like one of the pre-made templates but want to customize it:
 ## Limits and things to keep in mind
 
 <Warning>
-Each template needs at least one section with a title and instructions to work properly.
+  Each template needs at least one section with a title and instructions to work properly.
 </Warning>
 
 - When you apply a template, it may take a few moments for Jamie to generate the new summary.
 - Very long or complex templates may take longer to process.
 - Templates work best when the meeting transcript has enough content for each section. If the meeting didn't cover a topic, that section may be brief or empty.
 - You can only delete templates you created yourself.
-
