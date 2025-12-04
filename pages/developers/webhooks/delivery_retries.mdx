@@ -1,0 +1,63 @@
+---
+title: "Delivery & Retries"
+description: "Description of your new file."
+---
+
+## Delivery & Retries
+
+### Delivery Expectations
+
+- **Timeout**: Webhook requests timeout after **30 seconds**
+- **Success**: Your endpoint should return a 2xx HTTP status code to acknowledge receipt
+- **Response Body**: The response body is not processed (you can return any content or leave it empty)
+
+### Retry Behavior
+
+If your endpoint doesn't respond with a 2xx status code, Jamie automatically retries the delivery with exponential backoff:
+
+| Attempt | Delay      | Total Time Elapsed |
+| :------ | :--------- | :----------------- |
+| 1       | Immediate  | 0s                 |
+| 2       | 10 seconds | 10s                |
+| 3       | 60 seconds | 1m 10s             |
+| 4       | 10 minutes | 11m 10s            |
+| 5       | 1 hour     | 1h 11m 10s         |
+
+After 5 failed attempts, the webhook delivery is marked as failed and:
+
+- The webhook delivery is moved to a dead-letter queue
+- Workspace administrators receive an email notification about the failure
+- Email notifications are rate-limited to **1 per hour per webhook endpoint** to prevent spam
+
+### Failure Scenarios
+
+A webhook delivery fails and triggers a retry if:
+
+- Your endpoint returns a non-2xx HTTP status code
+- Your endpoint doesn't respond within 30 seconds
+- A network error occurs during delivery
+
+A webhook delivery is **skipped** (no retries) if:
+
+- The webhook endpoint has been deleted
+- The webhook endpoint is disabled/inactive
+
+## Testing Webhooks
+
+You can send a test webhook to verify your endpoint is working correctly:
+
+1. Go to **Settings → Integrations → Webhooks**
+2. Find the webhook you want to test
+3. Click the **Test** button
+4. Check your endpoint to confirm it received the test payload
+
+Test webhooks:
+
+- Send a realistic mock payload with sample meeting data
+- Use the same retry and delivery mechanism as real webhooks
+- Require the webhook to be **enabled/active**
+- Count toward rate limits and retry attempts
+
+<Tip>
+  Use test webhooks during development to verify your signature verification and payload processing logic before going live.
+</Tip>

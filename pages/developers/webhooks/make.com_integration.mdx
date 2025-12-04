@@ -1,0 +1,187 @@
+---
+title: "Make.com Integration"
+description: "Step-by-step guide to integrate Jamie webhooks with Make.com (formerly Integromat)"
+---
+
+## Integrating Jamie with Make.com
+
+This guide walks you through setting up a Jamie webhook that sends meeting summaries to [Make.com](https://make.com) for automation.
+
+### Prerequisites
+
+- A Jamie account with Plus plan or higher
+- A Make.com account
+- Workspace admin access in Jamie
+
+### Step 1: Create the Webhook in Jamie First
+
+We'll create the Jamie webhook first to get the API key, then use it when setting up Make.com.
+
+1. Go to **Settings → Integrations → Webhooks** in Jamie
+2. Click **Create Webhook**
+3. Enter a placeholder URL for now (e.g., `https://hook.make.com/placeholder`)
+4. Add a description (e.g., "Make.com automation")
+5. Click **Continue**
+6. Select **API Key** as the authentication method
+7. Set the **Header Name** to: `x-make-apikey`
+8. Click **Create Webhook**
+9. **Copy the generated secret key** (`sk_...`) - you'll need this for Make.com
+
+<Warning>
+  Save this key somewhere safe! You won't be able to see it again.
+</Warning>
+
+### Step 2: Create the Webhook in Make.com
+
+Now create the Make.com webhook with API key verification built-in:
+
+1. Log in to your Make.com account
+2. Create a new scenario or open an existing one
+3. Click **+** to add a new module
+4. Search for **Webhooks** and select **Custom webhook**
+5. Click **Add** to create a new webhook
+6. Enter a **Webhook name** (e.g., "Jamie webhook")
+7. Expand **API Key authentication** → **API keys**
+8. Click **+ Add API key**
+9. Click **Add** next to the "Choose a key" dropdown
+10. In the **Add new keychain** dialog:
+    - **Name**: Enter a name (e.g., "Jamie API Key")
+    - **API key value**: Paste the secret key (`sk_...`) from Jamie
+11. Click **Create**
+12. Select the key you just created from the dropdown
+13. Click **Save**
+14. **Copy the webhook URL** that Make.com generates
+
+<Info>
+  The URL will look something like: `https://hook.make.com/abc123xyz789...`
+  
+  Make.com will now automatically reject any requests that don't include the correct `x-make-apikey` header with your secret key.
+</Info>
+
+### Step 3: Update the Jamie Webhook URL
+
+1. Go back to Jamie **Settings → Integrations → Webhooks**
+2. Find your webhook and click to edit it
+3. Replace the placeholder URL with the real Make.com webhook URL you copied
+4. Click **Save**
+
+### Step 4: Determine the Data Structure
+
+1. In Make.com, right-click on your webhook module and select **Run this module only**
+2. Go to Jamie and click **Send Test Webhook** for your webhook
+3. Make.com will capture the test data and show you the available fields
+4. Click **OK** to save the structure
+
+<Tip>
+  This step is important! Make.com needs to "learn" the data structure before you can map fields to other modules.
+</Tip>
+
+### Step 5: Build Your Automation
+
+Now you can use the meeting data in your Make.com scenario! Here are some common examples:
+
+#### Send Summary to Slack
+
+```
+Webhook → Slack: Create a Message
+```
+
+Map the fields:
+- **Channel**: Select your channel (e.g., `#meeting-summaries`)
+- **Text**: Click and select `data` → `summary` → `markdown`
+
+#### Save to Google Docs
+
+```
+Webhook → Google Docs: Create a Document
+```
+
+Map the fields:
+- **Title**: `{{data.event.title}} - Meeting Summary`
+- **Content**: Select `data` → `summary` → `html`
+
+#### Add Tasks to Notion
+
+```
+Webhook → Iterator → Notion: Create a Database Item
+```
+
+1. Add an **Iterator** module after the webhook
+2. Set the array to: `data` → `tasks`
+3. Connect to Notion and map:
+   - **Task name**: `content` (from the iterator)
+   - **Status**: `To Do`
+
+### Example: Complete Automation Flow
+
+```
+Jamie Webhook
+    ↓
+Slack: Post summary to #meetings
+    ↓
+Iterator: Loop through tasks
+    ↓
+Notion: Create task items
+    ↓
+Google Calendar: Create follow-up event
+```
+
+### Webhook Data Available in Make.com
+
+After the webhook receives data, you'll have access to these fields:
+
+| Field Path | Description | Example |
+|:-----------|:------------|:--------|
+| `metadata.id` | Webhook delivery ID | `"7893456789012345678"` |
+| `metadata.event` | Event type | `"meeting.completed"` |
+| `data.event.title` | Meeting title | `"Q4 Planning Meeting"` |
+| `data.event.scheduledTime` | Start time (ISO 8601) | `"2024-11-27T14:00:00.000Z"` |
+| `data.event.endTime` | End time (ISO 8601) | `"2024-11-27T15:00:00.000Z"` |
+| `data.summary.markdown` | Summary in Markdown | `"# Meeting Summary..."` |
+| `data.summary.html` | Summary in HTML | `"<h1>Meeting Summary</h1>..."` |
+| `data.transcript[]` | Array of transcript segments | See below |
+| `data.participants[]` | Array of participants | `[{ id, name }]` |
+| `data.tasks[]` | Array of action items | `[{ content, completed }]` |
+
+#### Transcript Structure
+Each item in `data.transcript[]`:
+- `speakerId`: Unique speaker identifier
+- `speakerName`: Display name
+- `text`: What was said
+
+#### Tasks Structure
+Each item in `data.tasks[]`:
+- `content`: The task description
+- `completed`: Boolean (usually `false` for new tasks)
+
+### Troubleshooting
+
+**Webhook not receiving data:**
+- Ensure the webhook is enabled in Jamie (check the toggle)
+- Verify the Make.com URL is correct (no extra spaces)
+- Check that your Jamie plan supports webhooks
+- Make sure the Make.com scenario is **turned on** (not just saved)
+
+**Authentication failing (401 error):**
+- Verify the API key in Make.com matches exactly the key from Jamie
+- Check that the header name in Jamie is set to `x-make-apikey`
+- Try regenerating the key in Jamie and updating it in Make.com
+
+**"No data" in Make.com:**
+- Run the webhook module in "Run once" mode first
+- Send a test webhook from Jamie to capture the structure
+- Check the Make.com **History** tab for incoming requests
+
+**Fields not mapping correctly:**
+- Re-run the "determine data structure" step
+- Make sure you're selecting fields from the correct module
+- Check that array fields use an Iterator module
+
+**Scenario not running automatically:**
+- Verify the scenario is **turned on** (toggle in bottom-left)
+- Check your Make.com plan limits (operations per month)
+- Look for errors in the scenario's execution history
+
+<Tip>
+  Use Make.com's **History** tab to inspect incoming webhook payloads and debug any issues. You can see the full request including headers and body.
+</Tip>

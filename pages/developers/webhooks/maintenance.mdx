@@ -1,0 +1,53 @@
+---
+title: "Managing Webhooks"
+description: "Description of your new file."
+---
+
+## Managing Webhooks
+
+### Updating a Webhook
+
+1. Navigate to **Settings → Integrations → Webhooks**
+2. Click the webhook you want to edit
+3. Update the URL, description, or toggle the active status
+4. Click **Save**
+
+You can update:
+
+- **URL**: Change where webhook events are delivered
+- **Description**: Update the identifying note
+- **Active Status**: Enable or disable webhook delivery without deleting the endpoint
+
+<Info>
+  You cannot update the selected events after creation. If you need different events, create a new webhook endpoint.
+</Info>
+
+### Regenerating the Signing Secret
+
+If your signing secret is compromised or lost:
+
+1. Navigate to **Settings → Integrations → Webhooks**
+2. Click the webhook
+3. Click **Regenerate Secret**
+4. Save the new secret immediately - it will only be shown once
+5. Update your webhook receiver with the new secret
+
+<Warning>
+  Regenerating the signing secret immediately invalidates the old one. Any webhooks using the old secret will fail verification. Update your receiving endpoint before regenerating.
+</Warning>
+
+### Deleting a Webhook
+
+1. Navigate to **Settings → Integrations → Webhooks**
+2. Click the webhook you want to delete
+3. Click **Delete**
+4. Confirm the deletion
+
+Once deleted:
+
+- The webhook stops receiving events immediately
+- Any pending deliveries for this webhook are cancelled
+- The signing secret is permanently invalidated
+- This action cannot be undone
+
+## 

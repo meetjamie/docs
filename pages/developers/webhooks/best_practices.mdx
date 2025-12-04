@@ -1,0 +1,63 @@
+---
+title: "Best Practices"
+description: "Description of your new file."
+---
+
+## Best Practices
+
+### Endpoint Implementation
+
+1. **Return quickly** - Respond with a 2xx status code immediately, then process the webhook asynchronously
+
+   ```javascript
+   app.post('/webhooks/jamie', async (req, res) => {
+     // Verify signature first
+     await verifySignature(req);
+     
+     // Acknowledge receipt immediately
+     res.status(200).send('OK');
+     
+     // Process asynchronously (queue, background job, etc.)
+     await queue.add('process-webhook', req.body);
+   });
+   ```
+2. **Make it idempotent** - Use `metadata.id` to prevent processing duplicates
+
+   ```javascript
+   const deliveryId = req.body.metadata.id;
+   if (await db.isProcessed(deliveryId)) {
+     return res.status(200).send('Already processed');
+   }
+   await db.markProcessed(deliveryId);
+   // Process webhook...
+   ```
+3. **Log everything** - Keep detailed logs for debugging
+
+   ```javascript
+   console.log('Webhook received:', {
+     deliveryId: req.body.metadata.id,
+     event: req.body.metadata.event,
+     meetingTitle: req.body.data.event.title
+   });
+   ```
+
+### Security
+
+1. **Always verify signatures** - Never trust webhook data without verification
+2. **Use HTTPS** - Protect data in transit
+3. **Validate timestamps** - Prevent replay attacks (5-minute tolerance recommended)
+4. **Store secrets securely** - Use environment variables or a secrets manager
+5. **Implement rate limiting** - Protect your endpoint from abuse
+
+### Error Handling
+
+1. **Handle retries gracefully** - Don't create duplicate data on retries
+2. **Monitor failures** - Set up alerts for repeated webhook failures
+3. **Implement fallbacks** - Have a backup plan if webhooks fail (e.g., periodic polling)
+
+### Testing
+
+1. **Use test webhooks** - Verify your implementation before going live
+2. **Test failure scenarios** - Ensure your endpoint handles errors gracefully
+3. **Validate signature verification** - Test with both valid and invalid signatures
+4. **Check idempotency** - Verify duplicate deliveries are handled correctly

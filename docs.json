@@ -30,6 +30,12 @@
             ]
           },
           {
+            "group": "Developers",
+            "pages": [
+              "pages/developers/webhooks"
+            ]
+          },
+          {
             "group": "FAQs & Troubeshooting",
             "pages": [
               "pages/faqs_troubleshooting/data",
