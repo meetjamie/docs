@@ -37,7 +37,6 @@
               "pages/developers/webhooks/maintenance",
               "pages/developers/webhooks/security_verification",
               "pages/developers/webhooks/delivery_retries",
-              "pages/developers/webhooks/best_practices",
               "pages/developers/webhooks/make.com_integration",
               "pages/developers/webhooks/troubleshooting"
             ]
