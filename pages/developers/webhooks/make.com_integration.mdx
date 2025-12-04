@@ -3,8 +3,6 @@ title: "Make.com Integration"
 description: "Step-by-step guide to integrate Jamie webhooks with Make.com (formerly Integromat)"
 ---
 
-## Integrating Jamie with Make.com
-
 This guide walks you through setting up a Jamie webhook that sends meeting summaries to [Make.com](https://make.com) for automation.
 
 ### Prerequisites
@@ -35,15 +33,15 @@ We'll create the Jamie webhook first to get the API key, then use it when settin
 
 Now create the Make.com webhook with API key verification built-in:
 
-1. Log in to your Make.com account
-2. Create a new scenario or open an existing one
-3. Click **+** to add a new module
-4. Search for **Webhooks** and select **Custom webhook**
-5. Click **Add** to create a new webhook
-6. Enter a **Webhook name** (e.g., "Jamie webhook")
-7. Expand **API Key authentication** → **API keys**
-8. Click **+ Add API key**
-9. Click **Add** next to the "Choose a key" dropdown
+ 1. Log in to your Make.com account
+ 2. Create a new scenario or open an existing one
+ 3. Click **\+** to add a new module
+ 4. Search for **Webhooks** and select **Custom webhook**
+ 5. Click **Add** to create a new webhook
+ 6. Enter a **Webhook name** (e.g., "Jamie webhook")
+ 7. Expand **API Key authentication** → **API keys**
+ 8. Click **\+ Add API key**
+ 9. Click **Add** next to the "Choose a key" dropdown
 10. In the **Add new keychain** dialog:
     - **Name**: Enter a name (e.g., "Jamie API Key")
     - **API key value**: Paste the secret key (`sk_...`) from Jamie
@@ -54,7 +52,7 @@ Now create the Make.com webhook with API key verification built-in:
 
 <Info>
   The URL will look something like: `https://hook.make.com/abc123xyz789...`
-  
+
   Make.com will now automatically reject any requests that don't include the correct `x-make-apikey` header with your secret key.
 </Info>
 
@@ -87,6 +85,7 @@ Webhook → Slack: Create a Message
 ```
 
 Map the fields:
+
 - **Channel**: Select your channel (e.g., `#meeting-summaries`)
 - **Text**: Click and select `data` → `summary` → `markdown`
 
@@ -97,6 +96,7 @@ Webhook → Google Docs: Create a Document
 ```
 
 Map the fields:
+
 - **Title**: `{{data.event.title}} - Meeting Summary`
 - **Content**: Select `data` → `summary` → `html`
 
@@ -130,54 +130,63 @@ Google Calendar: Create follow-up event
 
 After the webhook receives data, you'll have access to these fields:
 
-| Field Path | Description | Example |
-|:-----------|:------------|:--------|
-| `metadata.id` | Webhook delivery ID | `"7893456789012345678"` |
-| `metadata.event` | Event type | `"meeting.completed"` |
-| `data.event.title` | Meeting title | `"Q4 Planning Meeting"` |
-| `data.event.scheduledTime` | Start time (ISO 8601) | `"2024-11-27T14:00:00.000Z"` |
-| `data.event.endTime` | End time (ISO 8601) | `"2024-11-27T15:00:00.000Z"` |
-| `data.summary.markdown` | Summary in Markdown | `"# Meeting Summary..."` |
-| `data.summary.html` | Summary in HTML | `"<h1>Meeting Summary</h1>..."` |
-| `data.transcript[]` | Array of transcript segments | See below |
-| `data.participants[]` | Array of participants | `[{ id, name }]` |
-| `data.tasks[]` | Array of action items | `[{ content, completed }]` |
+| Field Path                 | Description                  | Example                         |
+| :------------------------- | :--------------------------- | :------------------------------ |
+| `metadata.id`              | Webhook delivery ID          | `"7893456789012345678"`         |
+| `metadata.event`           | Event type                   | `"meeting.completed"`           |
+| `data.event.title`         | Meeting title                | `"Q4 Planning Meeting"`         |
+| `data.event.scheduledTime` | Start time (ISO 8601)        | `"2024-11-27T14:00:00.000Z"`    |
+| `data.event.endTime`       | End time (ISO 8601)          | `"2024-11-27T15:00:00.000Z"`    |
+| `data.summary.markdown`    | Summary in Markdown          | `"# Meeting Summary..."`        |
+| `data.summary.html`        | Summary in HTML              | `"<h1>Meeting Summary</h1>..."` |
+| `data.transcript[]`        | Array of transcript segments | See below                       |
+| `data.participants[]`      | Array of participants        | `[{ id, name }]`                |
+| `data.tasks[]`             | Array of action items        | `[{ content, completed }]`      |
 
 #### Transcript Structure
+
 Each item in `data.transcript[]`:
+
 - `speakerId`: Unique speaker identifier
 - `speakerName`: Display name
 - `text`: What was said
 
 #### Tasks Structure
+
 Each item in `data.tasks[]`:
+
 - `content`: The task description
 - `completed`: Boolean (usually `false` for new tasks)
 
 ### Troubleshooting
 
 **Webhook not receiving data:**
+
 - Ensure the webhook is enabled in Jamie (check the toggle)
 - Verify the Make.com URL is correct (no extra spaces)
 - Check that your Jamie plan supports webhooks
 - Make sure the Make.com scenario is **turned on** (not just saved)
 
 **Authentication failing (401 error):**
+
 - Verify the API key in Make.com matches exactly the key from Jamie
 - Check that the header name in Jamie is set to `x-make-apikey`
 - Try regenerating the key in Jamie and updating it in Make.com
 
 **"No data" in Make.com:**
+
 - Run the webhook module in "Run once" mode first
 - Send a test webhook from Jamie to capture the structure
 - Check the Make.com **History** tab for incoming requests
 
 **Fields not mapping correctly:**
+
 - Re-run the "determine data structure" step
 - Make sure you're selecting fields from the correct module
 - Check that array fields use an Iterator module
 
 **Scenario not running automatically:**
+
 - Verify the scenario is **turned on** (toggle in bottom-left)
 - Check your Make.com plan limits (operations per month)
 - Look for errors in the scenario's execution history
