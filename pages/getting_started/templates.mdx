@@ -9,7 +9,7 @@ Templates let you control both the structure and the content of your meeting sum
 
 You define the sections and what should go into each one. That way, your summaries come out ready to use, with exactly the sections and details you need.
 
-## When you'd use it
+## When you'd use a template
 
 <CardGroup cols={2}>
   <Card title="Team alignment" icon="users">
@@ -28,117 +28,75 @@ You define the sections and what should go into each one. That way, your summari
 
 ## How to use
 
-### Applying a template to a meeting
+<Tabs>
+  <Tab title="Applying a template">
+    <Steps>
+      <Step title="Open a meeting">
+        Go to your meetings list and click on any meeting.
+      </Step>
+      <Step title="Find the template dropdown">
+        Look below the summary. You will see a dropdown showing the current template name (such as "Default").
 
-<Steps>
-  <Step title="Open a meeting">
-    Go to your meetings list and click on any meeting.
-  </Step>
-  <Step title="Find the template dropdown">
-    Look below the summary. You will see a dropdown showing the current template name (such as "Default").
+        <img
+          src="/images/templateDropdown.png"
+          alt="Jamie Template Dropdown"
+          className="rounded-lg"
+          style={{ width:"72%" }}
+        />
+      </Step>
+      <Step title="Choose a template">
+        Click the dropdown to see your available templates. Click on any template to apply it.
+      </Step>
+      <Step title="Wait for the summary">
+        Jamie will regenerate the summary using that template's format. A checkmark shows which template is currently applied.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Creating a custom template">
+    <Steps>
+      <Step title="Start creating">
+        From the template dropdown, click **New template**.
+      </Step>
+      <Step title="Choose your starting point">
+        You can either click **start from scratch** to create a blank template, or select one of the default templates as a starting point (Jamie will make a copy for you to edit).
+      </Step>
+      <Step title="Name your template">
+        Give your template a name by editing the title at the top.
+      </Step>
+      <Step title="Add meeting context">
+        Fill in the **Meeting Context** field to describe when this template should be used (for example, "Weekly team sync meetings", "Interviews with potential candidates").
+      </Step>
+      <Step title="Add sections">
+        Add and edit **Sections**. Each section has a **title** (like "Key Decisions" or "Action Items") and **Instructions** that tell Jamie what to include in that section.
+      </Step>
+    </Steps>
+    <Tip>
+      Your changes save automatically. No need to click a save button.
+    </Tip>
+  </Tab>
+  <Tab title="Going back to the original summary">
+    Not happy with the template you've chosen? Go back to your previous notes instantly.
 
-    <img
-      src="/images/templateDropdown.png"
-      alt="Jamie Template Dropdown"
-      className="rounded-lg"
-      style={{ width:"72%" }}
-    />
-  </Step>
-  <Step title="Choose a template">
-    Click the dropdown to see your available templates. Click on any template to apply it.
-  </Step>
-  <Step title="Wait for the summary">
-    Jamie will regenerate the summary using that template's format. A checkmark shows which template is currently applied.
-  </Step>
-</Steps>
-
-### Going back to the original summary
-
-Not happy with the template you've chosen? Go back to your previous notes instantly. 
-
-<Steps>
-  <Step title="Open the template menu">
-    Click the template dropdown at the top of your notes.
-  </Step>
-  <Step title="Select Default">
-    Choose the template called **"Default"**.
-  </Step>
-  <Step title="Jamie restores your original summary">
-    Jamie remembers the original layout and switches your notes back to it.
-  </Step>
-</Steps>
-
-### Creating a custom template
-
-<Steps>
-  <Step title="Start creating">
-    From the template dropdown, click **New template**.
-  </Step>
-  <Step title="Choose your starting point">
-    You can either click **start from scratch** to create a blank template, or select one of the default templates as a starting point (Jamie will make a copy for you to edit).
-  </Step>
-  <Step title="Name your template">
-    Give your template a name by editing the title at the top.
-  </Step>
-  <Step title="Add meeting context">
-    Fill in the **Meeting Context** field to describe when this template should be used (for example, "Weekly team sync meetings", "Interviews with potential candidates").
-  </Step>
-  <Step title="Add sections">
-    Add and edit **Sections**. Each section has a **title** (like "Key Decisions" or "Action Items") and **Instructions** that tell Jamie what to include in that section.
-  </Step>
-</Steps>
-
-<Tip>
-  Your changes save automatically. No need to click a save button.
-</Tip>
-
-### Duplicating a default template
-
-If you like one of the pre-made templates but want to customize it:
-
-<Steps>
-  <Step title="Go to Default templates">
-    Open the templates window and go to the **Default** tab.
-  </Step>
-  <Step title="Select and duplicate">
-    Select the template you want to copy, then click the **Duplicate** button.
-  </Step>
-  <Step title="Edit your copy">
-    A copy appears in your **Personal** templates that you can edit freely.
-  </Step>
-</Steps>
-
-### Deleting a template
-
-<Steps>
-  <Step title="Go to Personal templates">
-    Open the templates window and go to the **Personal** tab.
-  </Step>
-  <Step title="Select the template">
-    Click on the template you want to delete.
-  </Step>
-  <Step title="Delete it">
-    Click the menu button (three dots) in the top right of the editor, then click **Delete template**.
-  </Step>
-</Steps>
-
-## Examples
-
-<AccordionGroup>
-  <Accordion title="Sales team lead">
-    You create a template for sales calls with sections for "Customer Pain Points," "Budget Discussion," and "Next Steps." Now every sales call summary comes ready for your CRM.
-  </Accordion>
-  <Accordion title="Product manager">
-    You duplicate the default template and add a "Feature Requests" section with instructions to pull out any product suggestions mentioned. You use this for all customer feedback calls.
-  </Accordion>
-  <Accordion title="Team manager">
-    You make separate templates for your weekly team syncs and your one-on-one meetings. The team sync template focuses on project updates and blockers. The one-on-one template focuses on personal goals and feedback.
-  </Accordion>
-</AccordionGroup>
+    <Steps>
+      <Step title="Open the template menu">
+        Click the template dropdown at the top of your notes.
+      </Step>
+      <Step title="Select Default">
+        Choose the template called **"Default"**.
+      </Step>
+      <Step title="Jamie restores your original summary">
+        Jamie remembers the original layout and switches your notes back to it.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
 
 ## Tips and common questions
 
 <AccordionGroup>
+  <Accordion title="How do I write good section instructions?">
+    Be specific about what you want, both in terms of content and formatting. For example, an interview template with a section titled "Work Experience" could say: "List the candidate’s experience in chronological order, including their title, the company name, and how long they spent there."
+  </Accordion>
   <Accordion title="Can I use multiple templates on the same meeting?">
     You can switch templates as many times as you like. Each time you apply a different template, Jamie regenerates the summary in that new format.
   </Accordion>
@@ -154,18 +112,14 @@ If you like one of the pre-made templates but want to customize it:
   <Accordion title="What happens if I delete a template I've used before?">
     Meetings that used that template keep their existing summaries. You just won't be able to apply that template to new meetings.
   </Accordion>
-  <Accordion title="How do I write good section instructions?">
-    Be specific about what you want. For example, instead of "Action items," try "List all tasks mentioned with who is responsible and any deadlines discussed."
-  </Accordion>
 </AccordionGroup>
 
 ## Limits and things to keep in mind
 
 <Warning>
-  Each template needs at least one section with a title and instructions to work properly.
+  Each template needs at least one section with a title and instructions to work properly. Sections with a missing title or instructions will be ignored.
 </Warning>
 
-- When you apply a template, it may take a few moments for Jamie to generate the new summary.
-- Very long or complex templates may take longer to process.
+- When you apply a template, it may take a few moments for Jamie to generate the new summary. Very long templates or meetings may take longer to process.
 - Templates work best when the meeting transcript has enough content for each section. If the meeting didn't cover a topic, that section may be brief or empty.
-- You can only delete templates you created yourself.
+- Clicking away or closing Jamie while a template will stop it from a
