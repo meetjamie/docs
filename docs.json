@@ -27,7 +27,8 @@
               "pages/getting_started/integrations",
               "pages/getting_started/copy_paste",
               "pages/getting_started/ask_ai",
-              "pages/getting_started/mobile_app"
+              "pages/getting_started/mobile_app",
+              "pages/getting_started/recording_consent"
             ]
           },
           {
