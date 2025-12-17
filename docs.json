@@ -32,15 +32,15 @@
             ]
           },
           {
-            "group": "Developers (coming soon)",
+            "group": "Webhooks (coming soon)",
             "pages": [
-              "pages/developers/webhooks/webhooks",
-              "pages/developers/webhooks/getting_started",
-              "pages/developers/webhooks/maintenance",
-              "pages/developers/webhooks/security_verification",
-              "pages/developers/webhooks/delivery_retries",
-              "pages/developers/webhooks/make.com_integration",
-              "pages/developers/webhooks/troubleshooting"
+              "pages/webhooks/webhooks",
+              "pages/webhooks/getting_started",
+              "pages/webhooks/maintenance",
+              "pages/webhooks/security_verification",
+              "pages/webhooks/delivery_retries",
+              "pages/webhooks/make.com_integration",
+              "pages/webhooks/troubleshooting"
             ]
           },
           {
