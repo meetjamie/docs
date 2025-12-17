@@ -1,0 +1,192 @@
+---
+title: "Getting Started"
+description: "All you need to know to get started"
+---
+
+### Prerequisites
+
+Before setting up a webhook, you'll need:
+
+1. **An HTTPS endpoint** - Your webhook receiver must use HTTPS (HTTP is not supported for security reasons)
+2. **Workspace admin access** - Only workspace administrators can create, edit, and delete webhooks
+3. **An eligible plan** - Upgrade to Plus or higher to access webhooks
+
+### Creating a Webhook
+
+1. Navigate to **Settings → Integrations → Webhooks**
+2. Click **Create Webhook**
+3. Fill in the required information:
+   - **URL**: Your HTTPS endpoint that will receive webhook events (e.g., `https://api.example.com/webhooks/jamie`)
+   - **Description** (optional): A note to help you identify this webhook
+   - **Events**: Select which events should trigger this webhook (currently only `meeting.completed`)
+4. **Choose your authentication method:**
+
+   <Tabs>
+     <Tab title="API Key (Recommended)">
+       The simplest way to authenticate webhooks. Jamie will send a static API key in a header of your choice.
+       - **Header Name**: Choose a custom header name (e.g., `x-jamie-api-key`, `x-make-apikey`, `Authorization`)
+       - Leave empty to use the default `x-jamie-api-key`
+
+       To verify requests, simply compare the header value with your stored secret. See [Security & Verification](/security-verification) for more implementation details.
+     </Tab>
+     <Tab title="Signature Verification (Advanced)">
+       For maximum security, Jamie signs each request with HMAC-SHA256. This verifies both authenticity and payload integrity.
+
+       The signature is sent in the `x-jamie-signature` header. See [Security & Verification](/security-verification) for implementation details.
+     </Tab>
+   </Tabs>
+5. Click **Create**
+6. **Save your secret key** - This is displayed only once. Store it securely (e.g., in your environment variables or secrets manager).
+
+<Warning>
+  Once you close the webhook creation dialog, you won't be able to see the secret key again. If you lose it, you'll need to regenerate it from the webhook settings.
+</Warning>
+
+## Events
+
+Jamie currently supports the following webhook event:
+
+### `meeting.completed`
+
+Triggered when a meeting has been fully processed and is ready with:
+
+- Meeting summary (in Markdown and HTML formats)
+- Full transcript
+- Extracted action items/tasks
+- Participant information
+- Meeting metadata
+
+## Payload Structure
+
+When a webhook event is triggered, Jamie sends a POST request to your endpoint with the following structure:
+
+### Headers
+
+Depending on your chosen authentication method, you'll receive different headers:
+
+**API Key Authentication:**
+
+```
+Content-Type: application/json
+user-agent: Jamie-Webhooks/1.0
+x-jamie-api-key: sk_a1b2c3d4e5f6...  (or your custom header name)
+jamie-event: meeting.completed
+jamie-delivery: 7893456789012345678
+```
+
+**Signature Verification:**
+
+```
+Content-Type: application/json
+user-agent: Jamie-Webhooks/1.0
+x-jamie-signature: t=1234567890,v0=5f3d8a7b2c1e9f4a6b8c0d2e4f6a8b0c
+jamie-event: meeting.completed
+jamie-delivery: 7893456789012345678
+```
+
+| Header              | Description                                                                                                      |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------- |
+| `x-jamie-api-key`   | Your API key for simple authentication (or your custom header name)                                              |
+| `x-jamie-signature` | HMAC-SHA256 signature for verifying webhook authenticity (see [Security & Verification](/security-verification)) |
+| `jamie-event`       | The event type that triggered this webhook                                                                       |
+| `jamie-delivery`    | Unique identifier for this webhook delivery                                                                      |
+
+### Request Body
+
+```json
+{
+  "metadata": {
+    "id": "7893456789012345678",
+    "event": "meeting.completed",
+    "created": 1701234567
+  },
+  "data": {
+    "summary": {
+      "markdown": "# Meeting Summary\n\n## Key Discussion Points\n• Reviewed Q4 roadmap...",
+      "html": "<h1>Meeting Summary</h1><h2>Key Discussion Points</h2><ul><li>Reviewed Q4 roadmap...</li></ul>"
+    },
+    "transcript": [
+      {
+        "speakerId": "1",
+        "speakerName": "Sarah Johnson",
+        "text": "Hi everyone! Thanks for joining today's meeting."
+      },
+      {
+        "speakerId": "2",
+        "speakerName": "Alex Chen",
+        "text": "Thanks for having me. Let's dive into the agenda."
+      }
+    ],
+    "participants": [
+      {
+        "id": "1",
+        "name": "Sarah Johnson"
+      },
+      {
+        "id": "2",
+        "name": "Alex Chen"
+      }
+    ],
+    "event": {
+      "id": "calendar-event-123",
+      "title": "Q4 Planning Meeting",
+      "scheduledTime": "2024-11-27T14:00:00.000Z",
+      "endTime": "2024-11-27T15:00:00.000Z"
+    },
+    "tasks": [
+      {
+        "content": "Finalize technical specifications for mobile app redesign",
+        "completed": false
+      },
+      {
+        "content": "Schedule follow-up meeting for next week",
+        "completed": false
+      }
+    ]
+  }
+}
+```
+
+### Field Descriptions
+
+#### `metadata`
+
+- `id` (string): Unique identifier for this webhook delivery
+- `event` (string): The event type (`meeting.completed`)
+- `created` (number): Unix timestamp (seconds) when the webhook was created
+
+#### `data.summary`
+
+- `markdown` (string): Meeting summary formatted as Markdown with speaker names highlighted
+- `html` (string): Meeting summary formatted as HTML, ready to display
+
+#### `data.transcript`
+
+Array of transcript segments:
+
+- `speakerId` (string): Unique identifier for the speaker
+- `speakerName` (string): Display name of the speaker
+- `text` (string): The spoken text
+
+#### `data.participants`
+
+Array of meeting participants:
+
+- `id` (string): Unique identifier for the participant
+- `name` (string): Display name of the participant
+
+#### `data.event`
+
+Calendar event information:
+
+- `id` (string | null): Calendar event ID (if available)
+- `title` (string): Meeting title
+- `scheduledTime` (string): ISO 8601 formatted start time
+- `endTime` (string | null): ISO 8601 formatted end time (if available)
+
+#### `data.tasks`
+
+Array of action items extracted from the meeting:
+
+- `content` (string): The task description
+- `completed` (boolean): Whether the task is marked as completed

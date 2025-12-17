@@ -1,0 +1,442 @@
+---
+title: "Security & Verification"
+description: "How to set up security"
+---
+
+Jamie offers two authentication methods for webhooks. Choose the one that best fits your needs.
+
+## Authentication Methods
+
+### API Key (Recommended)
+
+The simplest way to verify webhook requests. Jamie sends a static API key in a header that you specify during webhook creation.
+
+**How it works:**
+
+1. When creating the webhook, choose "API Key" authentication
+2. Optionally specify a custom header name (default: `x-jamie-api-key`)
+3. Save the generated secret key (`sk_...`)
+4. In your webhook handler, compare the header value with your stored secret
+
+#### Verification Code Examples
+
+<Tabs>
+  <Tab title="Node.js">
+    ```javascript
+    const express = require('express');
+    const app = express();
+    
+    app.use(express.json());
+    
+    app.post('/webhooks/jamie', (req, res) => {
+      // Get the API key from header (use your custom header name if configured)
+      const apiKey = req.headers['x-jamie-api-key'];
+      
+      // Compare with your stored secret
+      if (apiKey !== process.env.JAMIE_WEBHOOK_SECRET) {
+        console.error('Invalid API key');
+        return res.status(401).send('Unauthorized');
+      }
+      
+      // API key is valid, process the webhook
+      const { data } = req.body;
+      console.log('Meeting completed:', data.event.title);
+      console.log('Summary:', data.summary.markdown);
+      
+      // Process tasks
+      data.tasks.forEach(task => {
+        console.log('Task:', task.content);
+      });
+      
+      res.status(200).send('OK');
+    });
+    
+    app.listen(3000, () => {
+      console.log('Webhook server running on port 3000');
+    });
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    import os
+    from flask import Flask, request, jsonify
+    
+    app = Flask(__name__)
+    
+    @app.route('/webhooks/jamie', methods=['POST'])
+    def handle_webhook():
+        # Get the API key from header (use your custom header name if configured)
+        api_key = request.headers.get('x-jamie-api-key')
+        
+        # Compare with your stored secret
+        if api_key != os.environ.get('JAMIE_WEBHOOK_SECRET'):
+            print('Invalid API key')
+            return 'Unauthorized', 401
+        
+        # API key is valid, process the webhook
+        data = request.get_json()
+        print('Meeting completed:', data['data']['event']['title'])
+        print('Summary:', data['data']['summary']['markdown'])
+        
+        # Process tasks
+        for task in data['data']['tasks']:
+            print('Task:', task['content'])
+        
+        return 'OK', 200
+    
+    if __name__ == '__main__':
+        app.run(port=3000)
+    ```
+  </Tab>
+  <Tab title="Go">
+    ```go
+    package main
+    
+    import (
+        "encoding/json"
+        "fmt"
+        "io"
+        "net/http"
+        "os"
+    )
+    
+    type WebhookPayload struct {
+        Data struct {
+            Event struct {
+                Title string `json:"title"`
+            } `json:"event"`
+            Summary struct {
+                Markdown string `json:"markdown"`
+            } `json:"summary"`
+            Tasks []struct {
+                Content string `json:"content"`
+            } `json:"tasks"`
+        } `json:"data"`
+    }
+    
+    func webhookHandler(w http.ResponseWriter, r *http.Request) {
+        // Get the API key from header (use your custom header name if configured)
+        apiKey := r.Header.Get("x-jamie-api-key")
+        
+        // Compare with your stored secret
+        if apiKey != os.Getenv("JAMIE_WEBHOOK_SECRET") {
+            fmt.Println("Invalid API key")
+            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            return
+        }
+        
+        // API key is valid, process the webhook
+        body, _ := io.ReadAll(r.Body)
+        var payload WebhookPayload
+        json.Unmarshal(body, &payload)
+        
+        fmt.Println("Meeting completed:", payload.Data.Event.Title)
+        fmt.Println("Summary:", payload.Data.Summary.Markdown)
+        
+        // Process tasks
+        for _, task := range payload.Data.Tasks {
+            fmt.Println("Task:", task.Content)
+        }
+        
+        w.WriteHeader(http.StatusOK)
+    }
+    
+    func main() {
+        http.HandleFunc("/webhooks/jamie", webhookHandler)
+        fmt.Println("Webhook server running on port 3000")
+        http.ListenAndServe(":3000", nil)
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Signature Verification (Advanced)
+
+For maximum security, Jamie can sign all webhook requests using HMAC-SHA256. This ensures requests are authentic **and** haven't been tampered with.
+
+#### Signature Format
+
+The `x-jamie-signature` header uses the following format:
+
+```
+t=<timestamp>,v0=<signature>
+```
+
+- `t`: Unix timestamp (seconds) when the signature was created
+- `v0`: HMAC-SHA256 signature of the payload
+
+#### Verification Steps
+
+1. **Extract the timestamp and signature** from the `x-jamie-signature` header
+2. **Validate the timestamp** - Reject requests with timestamps older than 5 minutes (300 seconds) to prevent replay attacks
+3. **Recreate the signed message** - Concatenate the timestamp, a period (`.`), and the raw request body: `{timestamp}.{raw_body}`
+4. **Compute the expected signature** - Generate an HMAC-SHA256 hash of the message using your signing secret
+5. **Compare signatures** - Use a constant-time comparison to prevent timing attacks
+
+#### Verification Code Examples
+
+<Tabs>
+  <Tab title="Node.js">
+    ```javascript
+    const crypto = require('crypto');
+    
+    async function verifyWebhookSignature(
+      payload: string,
+      signature: string,
+      secret: string
+    ): Promise<boolean> {
+      // Parse signature header: t=timestamp,v0=hash
+      const parts = signature.split(',');
+      const timestamp = parts[0].split('=')[1];
+      const expectedSignature = parts[1].split('=')[1];
+    
+      // Validate timestamp (prevent replay attacks - 5 min tolerance)
+      const now = Math.floor(Date.now() / 1000);
+      if (now - parseInt(timestamp) > 300) {
+        throw new Error('Signature expired');
+      }
+    
+      // Recreate the signed message
+      const message = `${timestamp}.${payload}`;
+    
+      // Generate HMAC signature
+      const hmac = crypto.createHmac('sha256', secret);
+      hmac.update(message);
+      const actualSignature = hmac.digest('hex');
+    
+      // Compare signatures using constant-time comparison
+      const expectedBuffer = Buffer.from(expectedSignature, 'hex');
+      const actualBuffer = Buffer.from(actualSignature, 'hex');
+      
+      if (!crypto.timingSafeEqual(expectedBuffer, actualBuffer)) {
+        throw new Error('Invalid signature');
+      }
+    
+      return true;
+    }
+    
+    // Usage in your webhook endpoint (Express example):
+    app.post('/webhooks/jamie', async (req, res) => {
+      const signature = req.headers['x-jamie-signature'];
+      const payload = JSON.stringify(req.body);
+      
+      try {
+        await verifyWebhookSignature(
+          payload,
+          signature,
+          process.env.JAMIE_WEBHOOK_SECRET
+        );
+        
+        // Signature is valid, process the webhook
+        const { data } = req.body;
+        console.log('Meeting completed:', data.event.title);
+        
+        res.status(200).send('OK');
+      } catch (error) {
+        console.error('Webhook verification failed:', error);
+        res.status(401).send('Unauthorized');
+      }
+    });
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    import hmac
+    import hashlib
+    import time
+    import json
+    from typing import Dict
+    
+    def verify_webhook_signature(
+        payload: str,
+        signature: str,
+        secret: str
+    ) -> bool:
+        """Verify Jamie webhook signature
+        
+        Args:
+            payload: The raw request body as a string
+            signature: The x-jamie-signature header value
+            secret: Your webhook signing secret
+            
+        Returns:
+            True if signature is valid
+            
+        Raises:
+            ValueError: If signature is invalid or expired
+        """
+        # Parse signature header: t=timestamp,v0=hash
+        parts: Dict[str, str] = {
+            p.split('=')[0]: p.split('=')[1] 
+            for p in signature.split(',')
+        }
+        timestamp: int = int(parts['t'])
+        expected_signature: str = parts['v0']
+        
+        # Validate timestamp (prevent replay attacks - 5 min tolerance)
+        now: int = int(time.time())
+        if now - timestamp > 300:
+            raise ValueError('Signature expired')
+        
+        # Recreate the signed message
+        message: str = f"{timestamp}.{payload}"
+        
+        # Generate HMAC signature
+        signature_bytes: str = hmac.new(
+            secret.encode('utf-8'),
+            message.encode('utf-8'),
+            hashlib.sha256
+        ).hexdigest()
+        
+        # Compare signatures (constant-time comparison)
+        if not hmac.compare_digest(signature_bytes, expected_signature):
+            raise ValueError('Invalid signature')
+        
+        return True
+    
+    # Usage in your webhook endpoint (Flask example):
+    from flask import Flask, request
+    
+    app = Flask(__name__)
+    
+    @app.route('/webhooks/jamie', methods=['POST'])
+    def handle_webhook():
+        signature: str = request.headers.get('x-jamie-signature')
+        payload: str = request.get_data(as_text=True)
+        
+        try:
+            verify_webhook_signature(
+                payload,
+                signature,
+                os.environ['JAMIE_WEBHOOK_SECRET']
+            )
+            
+            # Signature is valid, process the webhook
+            data: Dict = json.loads(payload)
+            print('Meeting completed:', data['data']['event']['title'])
+            
+            return 'OK', 200
+        except Exception as e:
+            print('Webhook verification failed:', str(e))
+            return 'Unauthorized', 401
+    ```
+  </Tab>
+  <Tab title="Go">
+    ```go
+    package main
+    
+    import (
+        "crypto/hmac"
+        "crypto/sha256"
+        "encoding/hex"
+        "encoding/json"
+        "fmt"
+        "io"
+        "net/http"
+        "os"
+        "strconv"
+        "strings"
+        "time"
+    )
+    
+    // verifyWebhookSignature verifies the Jamie webhook signature
+    func verifyWebhookSignature(payload, signature, secret string) error {
+        // Parse signature header: t=timestamp,v0=hash
+        parts := make(map[string]string)
+        for _, part := range strings.Split(signature, ",") {
+            kv := strings.SplitN(part, "=", 2)
+            if len(kv) == 2 {
+                parts[kv[0]] = kv[1]
+            }
+        }
+        
+        timestamp, err := strconv.ParseInt(parts["t"], 10, 64)
+        if err != nil {
+            return fmt.Errorf("invalid timestamp: %w", err)
+        }
+        
+        expectedSignature := parts["v0"]
+        
+        // Validate timestamp (prevent replay attacks - 5 min tolerance)
+        now := time.Now().Unix()
+        if now-timestamp > 300 {
+            return fmt.Errorf("signature expired")
+        }
+        
+        // Recreate the signed message
+        message := fmt.Sprintf("%d.%s", timestamp, payload)
+        
+        // Generate HMAC signature
+        h := hmac.New(sha256.New, []byte(secret))
+        h.Write([]byte(message))
+        actualSignature := hex.EncodeToString(h.Sum(nil))
+        
+        // Compare signatures (constant-time comparison)
+        if !hmac.Equal([]byte(actualSignature), []byte(expectedSignature)) {
+            return fmt.Errorf("invalid signature")
+        }
+        
+        return nil
+    }
+    
+    // WebhookPayload represents the structure of Jamie webhook data
+    type WebhookPayload struct {
+        Metadata struct {
+            ID      string `json:"id"`
+            Event   string `json:"event"`
+            Created int64  `json:"created"`
+        } `json:"metadata"`
+        Data struct {
+            Event struct {
+                Title string `json:"title"`
+            } `json:"event"`
+        } `json:"data"`
+    }
+    
+    // webhookHandler handles incoming webhooks from Jamie
+    func webhookHandler(w http.ResponseWriter, r *http.Request) {
+        signature := r.Header.Get("x-jamie-signature")
+        body, err := io.ReadAll(r.Body)
+        if err != nil {
+            http.Error(w, "Failed to read body", http.StatusBadRequest)
+            return
+        }
+        
+        secret := os.Getenv("JAMIE_WEBHOOK_SECRET")
+        if err := verifyWebhookSignature(
+            string(body),
+            signature,
+            secret,
+        ); err != nil {
+            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            return
+        }
+        
+        // Signature is valid, process the webhook
+        var payload WebhookPayload
+        if err := json.Unmarshal(body, &payload); err != nil {
+            http.Error(w, "Invalid JSON", http.StatusBadRequest)
+            return
+        }
+        
+        fmt.Printf("Meeting completed: %s\n", payload.Data.Event.Title)
+        w.WriteHeader(http.StatusOK)
+    }
+    
+    func main() {
+        http.HandleFunc("/webhooks/jamie", webhookHandler)
+        http.ListenAndServe(":8080", nil)
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Warning>
+  **Security Best Practices:**
+
+  - Always verify the API key or signature before processing webhook data
+  - For signature verification, use constant-time comparison to prevent timing attacks
+  - Validate timestamps to prevent replay attacks (recommended tolerance: 5 minutes)
+  - Store your secret key securely (use environment variables or a secrets manager)
+  - Never commit secret keys to version control
+</Warning>

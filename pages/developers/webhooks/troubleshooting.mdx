@@ -1,0 +1,56 @@
+---
+title: "Troubleshooting"
+description: "Guidelines to troubleshoot"
+---
+
+### Webhook deliveries are failing
+
+**Check your endpoint:**
+
+- Ensure it's accessible from the internet (not localhost or behind a firewall)
+- Verify it uses HTTPS (HTTP is not supported)
+- Confirm it returns a 2xx status code
+- Make sure it responds within 30 seconds
+
+**Check your signature verification:**
+
+- Ensure you're using the correct signing secret
+- Verify you're comparing the raw request body (not parsed JSON)
+- Check that timestamp validation isn't too strict (recommended: 5 minutes)
+
+**Check the webhook status:**
+
+- Ensure the webhook is enabled/active
+- Verify you haven't exceeded the 5 webhooks per workspace limit
+
+### Not receiving webhooks
+
+**Verify the webhook configuration:**
+
+- Check that the webhook is enabled/active
+- Confirm the URL is correct
+- Ensure you've selected the `meeting.completed` event
+
+**Check your plan:**
+
+- Webhooks require Plus, Pro, Team, or Enterprise plans
+- Free plans don't have access to webhooks
+
+**Verify meetings are completing:**
+
+- Webhooks only fire when meetings are fully processed
+- Check that meetings are being recorded and processed successfully
+
+### Receiving duplicate webhooks
+
+This is expected behavior and your endpoint should be **idempotent**:
+
+- Use the `metadata.id` field to track which deliveries you've processed
+- If you receive the same `metadata.id` twice, skip processing the duplicate
+
+Duplicates can occur due to:
+
+- Retries after temporary failures
+- Network issues causing multiple delivery attempts
+
+## 

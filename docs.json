@@ -32,6 +32,18 @@
             ]
           },
           {
+            "group": "Developers (coming soon)",
+            "pages": [
+              "pages/developers/webhooks/webhooks",
+              "pages/developers/webhooks/getting_started",
+              "pages/developers/webhooks/maintenance",
+              "pages/developers/webhooks/security_verification",
+              "pages/developers/webhooks/delivery_retries",
+              "pages/developers/webhooks/make.com_integration",
+              "pages/developers/webhooks/troubleshooting"
+            ]
+          },
+          {
             "group": "FAQs & Troubeshooting",
             "pages": [
               "pages/faqs_troubleshooting/data",
