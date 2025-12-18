@@ -22,6 +22,7 @@
               "pages/getting_started/headphones",
               "pages/getting_started/identify_speaker",
               "pages/getting_started/edit_notes",
+              "pages/getting_started/templates",
               "pages/getting_started/tags",
               "pages/getting_started/tasks",
               "pages/getting_started/integrations",
