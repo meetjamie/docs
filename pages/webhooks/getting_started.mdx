@@ -57,6 +57,10 @@ Triggered when a meeting has been fully processed and is ready with:
 - Participant information
 - Meeting metadata
 
+<Info>
+  The meeting.completed webhook will be triggered by all meetings of every user in the workspace. Filtering of meetings must be done in your third-party provider in which you set up your webhook.
+</Info>
+
 ## Payload Structure
 
 When a webhook event is triggered, Jamie sends a POST request to your endpoint with the following structure:
