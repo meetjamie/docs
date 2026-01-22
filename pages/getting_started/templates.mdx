@@ -101,6 +101,45 @@ Templates let you control the structure and content of your meeting summaries. Y
   </Tab>
 </Tabs>
 
+## Automatically apply templates
+
+Instead of manually choosing a template after every meeting, you can let Jamie pick the right one for you.
+
+### How it works
+
+1. **You mark templates for auto-apply**: Enable auto-apply on any templates you want Jamie to consider.
+2. **Jamie classifies each meeting**: After a meeting ends, Jamie reviews which of your auto-apply templates best matches the meeting content.
+3. **The best fit gets applied**: If Jamie finds a relevant template, it applies that template automatically. If none of your auto-apply templates fit, Jamie uses the default format.
+
+<Tip>
+  The **Meeting Context** field you fill in when creating a template helps Jamie understand when to use it. Be descriptive, for example, "Weekly engineering standups" or "Sales discovery calls with new prospects." If your calendar is connected, referencing the meeting title can help Jamie match templates more accurately (e.g., "Meetings titled 'Sprint Planning'" or "Calls with 'Demo' in the title").
+</Tip>
+
+### Enabling auto-apply on a template
+
+<Steps>
+  <Step title="Open a template">
+    Go to your template list and select the template you want to auto-apply.
+  </Step>
+  <Step title="Turn on auto-apply">
+    Find the **Auto-apply** drop-down and switch it on.
+
+    <img
+      src="/images/auto-apply.png"
+      alt="Jamie Template Dropdown"
+      className="rounded-lg"
+      style={{ width:"72%" }}
+    />
+  </Step>
+  <Step title="Repeat for other templates">
+    You can enable auto-apply on multiple templates. Jamie will choose the most relevant one for each meeting.
+  </Step>
+</Steps>
+
+<Info>
+  Auto-apply only considers templates you've explicitly marked. Your other templates remain available for manual use but won't be applied automatically.
+</Info>
+
 ## Tips and common questions
 
 <AccordionGroup>
@@ -117,7 +156,7 @@ Templates let you control the structure and content of your meeting summaries. Y
     To customize a Jamie created template, use the **Duplicate** button to make your own copy, then edit that.
   </Accordion>
   <Accordion title="Who can see my templates?">
-    Personal templates are private to your account. Only you can see and use them.
+    Personal templates are private to your account, only you can see and use them. If you share a template with your workspace (Enterprise & Team plans only), all workspace members can use it.
   </Accordion>
   <Accordion title="What happens if I delete a template I've used before?">
     Meetings that used that template keep their existing summaries. You just won't be able to apply that template to new meetings.
@@ -131,5 +170,5 @@ Templates let you control the structure and content of your meeting summaries. Y
 </Warning>
 
 - When you apply a template, it may take a few moments for Jamie to generate the new summary. Very long templates or meetings may take longer to process.
-- Templates work best when the meeting transcript has enough content for each section. If the meeting didn't cover a topic, that section may be brief or empty.
 - If you close Jamie or click away while a template is applying, it stops and your notes return to how they were.
+- Templates work best when the meeting transcript has enough content for each section. If the meeting didn't cover a topic, that section may be brief or empty.

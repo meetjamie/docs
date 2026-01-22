@@ -33,7 +33,7 @@
             ]
           },
           {
-            "group": "Webhooks (coming soon)",
+            "group": "Webhooks",
             "pages": [
               "pages/webhooks/webhooks",
               "pages/webhooks/getting_started",
