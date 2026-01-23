@@ -118,5 +118,8 @@
       "x": "https://twitter.com/meetjamie_ai",
       "linkedin": "https://de.linkedin.com/company/meetjamie-ai"
     }
+  },
+  "seo": {
+    "indexing": "all"
   }
 }
