@@ -1,72 +1,67 @@
 ---
 title: "Salesforce"
-description: "How to integrate Jamie into your workflow."
-icon: "cloud"
+description: "Attach meeting notes to Salesforce records"
+icon: "salesforce"
 ---
 
-Jamie makes it easy to save and organize your meeting summaries and transcripts directly in your favorite tools.
-
-You can automatically send your notes to **Notion**, **OneNote**, or **Google Docs**, keeping everything organized in the apps you already use.
-
-Each integration only needs to be connected once, and from then on you can share meeting notes with just one click or enable automatic syncing. If you have automatic syncing enabled, Jamie automatically sends every meeting to the selected tool after completion.
-
-![Integration Settings Pn](/images/integration_settings.png)
-
-If you prefer sending notes manually or want to re-sync a meeting, simply open the meeting you want to share, click on the \*\*Share \*\*button, and select the tool you’d like to send it to.
-
-![Sharing Card Pn](/images/sharing_card.png)
-
-## Notion
-
-You can connect your Notion workspace with Jamie to store all meeting notes in a dedicated Notion database.
-
-<img
-  src="/images/notion_database.png"
-  alt="Notion Database Pn"
-  title="Notion Database Pn"
-  style={{ width:"100%" }}
-/>
-
-Each meeting gets created as new page with the content you selected to send over (summary and/or transcript)
-
-![Notion Meeting Pn](/images/notion_meeting.png)
-
-### **How it works**
-
-1. Click **Connect Notion**, then **Select Pages** and choose **Allow access**. Jamie will only get access to the Jamie Notion page.
-2. Jamie creates a new page in your Notion workspace with a database for your notes.
-3. To send a summary, click **Share** in the meeting view and then **Send to Notion**.
-   - You can also enable **Automatic sync** to send every meeting automatically.
+Connect Jamie to Salesforce to log meeting notes as Notes on Leads, Contacts, Opportunities, and Accounts.
 
 <Info>
-  **Important:** Do not delete the database that Jamie creates.
+  Salesforce integration requires a **Pro**, **Team**, or **Enterprise** plan.
 </Info>
 
-## OneNote
+## Admin Setup (One-Time)
 
-With the OneNote integration, Jamie can create and store all your meeting notes in a dedicated OneNote notebook.
+A Salesforce admin must complete this setup before users can connect:
 
-![One Note Meeting Pn](/images/one_note_meeting.png)
+1. Go to **Settings → Integrations → Salesforce** and click **Connect Salesforce**
+2. Log in with an admin account and click **Allow**
+3. In Salesforce, go to **Setup → Apps → Connected Apps → Manage Connected Apps**
+4. Find **Jamie** and click **Install**
+5. Click **Edit Policies**
+6. Under **Permitted Users**, select **All users may self-authorize**
+7. Click **Save**
 
-### **How it works**
+<Warning>
+  Your Salesforce org must have the **Notes** feature enabled. Verify at **Setup → Feature Settings → Sales → Notes Settings**.
+</Warning>
 
-1. Click **Connect OneNote**, select the account you want to connect to, and allow access.
-2. Jamie creates a new notebook in your OneNote account with a section for your notes.
-3. To send a summary, click **Share** in the meeting view and then **Send to OneNote**.
-   - You can also enable **Automatic sync** to send every meeting automatically.
+## User Setup
+
+After admin setup, each user can connect:
+
+1. Go to **Settings → Integrations → Salesforce**
+2. Click **Connect Salesforce**
+3. Log in with your Salesforce account and click **Allow**
+
+## Sending Meetings to Salesforce
+
+![Integrations Card](/images/integrations-card.png)
+
+1. Open a meeting in Jamie
+2. Click the **Share** button
+3. Select **Send to Salesforce**
+4. Search for a Lead, Contact, Opportunity, or Account
+5. Click **Send**
+
+Your meeting notes appear in the **Notes** section of the selected record.
 
 <Info>
-  **Important:** Do not delete the notebook or section that Jamie creates.
+  If you don't see the Notes section on a record, ask your admin to add it via **Setup → User Interface → Lightning App Builder**.
 </Info>
 
-## Google Docs
+## Settings
 
-If you prefer working in Google Docs, Jamie can send all your meeting notes directly into your Google Drive.
+![Salesforce Settings](/images/salesforce-settings.png)
 
-![Google Docs Meeting Pn](/images/google_docs_meeting.png)
+Configure what content to include:
 
-### **How it works**
+| Option         | Description                          |
+| -------------- | ------------------------------------ |
+| **Summary**    | Meeting notes with executive summary |
+| **Transcript** | Full transcript                      |
+| **Tasks**      | Action items from the meeting        |
 
-1. Click **Connect Google Docs**, select the account you want to connect to, and allow access.
-2. To send a summary, click **Share** in the meeting view and then **Send to Google Docs**.
-   - You can also enable **Automatic sync** to send every meeting automatically.
+<Info>
+  At least one option must be enabled.
+</Info>

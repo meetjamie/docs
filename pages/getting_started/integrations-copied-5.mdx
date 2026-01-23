@@ -1,72 +1,49 @@
 ---
 title: "OneNote"
-description: "How to integrate Jamie into your workflow."
+description: "Save meeting notes to OneNote"
 icon: "notes"
 ---
 
-Jamie makes it easy to save and organize your meeting summaries and transcripts directly in your favorite tools.
+Connect Jamie to OneNote to automatically save meeting notes to your notebooks.
 
-You can automatically send your notes to **Notion**, **OneNote**, or **Google Docs**, keeping everything organized in the apps you already use.
+## Connecting OneNote
 
-Each integration only needs to be connected once, and from then on you can share meeting notes with just one click or enable automatic syncing. If you have automatic syncing enabled, Jamie automatically sends every meeting to the selected tool after completion.
+1. Go to **Settings → Integrations → OneNote**
+2. Click **Connect OneNote**
+3. Select your Microsoft account and authorize the connection
 
-![Integration Settings Pn](/images/integration_settings.png)
+Jamie creates a notebook with a section for your meeting notes.
 
-If you prefer sending notes manually or want to re-sync a meeting, simply open the meeting you want to share, click on the \*\*Share \*\*button, and select the tool you’d like to send it to.
+<Warning>
+  Do not delete the notebook or section that Jamie creates. This will break the integration.
+</Warning>
 
-![Sharing Card Pn](/images/sharing_card.png)
+## Sending Meetings to OneNote
 
-## Notion
+![Integrations Card](/images/integrations-card.png)
 
-You can connect your Notion workspace with Jamie to store all meeting notes in a dedicated Notion database.
+1. Open a meeting in Jamie
+2. Click the **Share** button
+3. Select **Send to OneNote**
 
-<img
-  src="/images/notion_database.png"
-  alt="Notion Database Pn"
-  title="Notion Database Pn"
-  style={{ width:"100%" }}
-/>
+The meeting is added as a new page in your Jamie notebook.
 
-Each meeting gets created as new page with the content you selected to send over (summary and/or transcript)
+## Automatic Sync
 
-![Notion Meeting Pn](/images/notion_meeting.png)
+Enable **Automatic sync** to send every meeting to OneNote automatically after processing completes. Toggle this in **Settings → Integrations → OneNote**.
 
-### **How it works**
+## Settings
 
-1. Click **Connect Notion**, then **Select Pages** and choose **Allow access**. Jamie will only get access to the Jamie Notion page.
-2. Jamie creates a new page in your Notion workspace with a database for your notes.
-3. To send a summary, click **Share** in the meeting view and then **Send to Notion**.
-   - You can also enable **Automatic sync** to send every meeting automatically.
+![Onenote Settings](/images/onenote-settings.png)
 
-<Info>
-  **Important:** Do not delete the database that Jamie creates.
-</Info>
+Configure what content to include:
 
-## OneNote
-
-With the OneNote integration, Jamie can create and store all your meeting notes in a dedicated OneNote notebook.
-
-![One Note Meeting Pn](/images/one_note_meeting.png)
-
-### **How it works**
-
-1. Click **Connect OneNote**, select the account you want to connect to, and allow access.
-2. Jamie creates a new notebook in your OneNote account with a section for your notes.
-3. To send a summary, click **Share** in the meeting view and then **Send to OneNote**.
-   - You can also enable **Automatic sync** to send every meeting automatically.
+| Option         | Description                          |
+| -------------- | ------------------------------------ |
+| **Summary**    | Meeting notes with executive summary |
+| **Transcript** | Full meeting transcript              |
+| **Tasks**      | Action items from the meeting        |
 
 <Info>
-  **Important:** Do not delete the notebook or section that Jamie creates.
+  At least one option must be enabled.
 </Info>
-
-## Google Docs
-
-If you prefer working in Google Docs, Jamie can send all your meeting notes directly into your Google Drive.
-
-![Google Docs Meeting Pn](/images/google_docs_meeting.png)
-
-### **How it works**
-
-1. Click **Connect Google Docs**, select the account you want to connect to, and allow access.
-2. To send a summary, click **Share** in the meeting view and then **Send to Google Docs**.
-   - You can also enable **Automatic sync** to send every meeting automatically.
