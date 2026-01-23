@@ -42,14 +42,15 @@
               "pages/getting_started/tags",
               "pages/getting_started/ask_ai",
               "pages/getting_started/mobile_app",
-              "documentation/getting-started/notifications",
               "documentation/getting-started/team-sharing",
+              "documentation/getting-started/notifications",
               "pages/getting_started/recording_consent"
             ]
           },
           {
             "group": "Integrations",
             "pages": [
+              "documentation/integrations/integrations",
               "pages/getting_started/integrations-copied-1",
               "pages/getting_started/integrations-copied-2",
               "pages/getting_started/integrations-copied-3",
