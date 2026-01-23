@@ -34,6 +34,7 @@
               "pages/getting_started/templates",
               {
                 "group": "Calendar",
+                "icon": "calendar",
                 "pages": [
                   "pages/getting_started/connect_calendar",
                   "documentation/getting-started/calendar/outlook"
@@ -65,6 +66,7 @@
             "pages": [
               {
                 "group": "Webhooks",
+                "icon": "webhook",
                 "pages": [
                   "pages/webhooks/webhooks",
                   "pages/webhooks/getting_started",
