@@ -1,0 +1,130 @@
+---
+title: "Outlook"
+description: "How to connect your calendar in Jamie."
+icon: "calendar"
+---
+
+Connect your Microsoft Outlook calendar to Jamie to see upcoming meetings, get automatic meeting titles, and enhanced speaker identification.
+
+![Meetings List 1](/images/meetings-list-1.png)
+
+## How to Connect Your Calendar
+
+Connecting your Microsoft calendar takes just a few steps:
+
+1. Click on your workspace name (top left corner)
+2. Go to **Settings**
+3. Navigate to \*\*Integrations \*\*\> **Outlook**
+4. Click **Connect Outlook Calendar**
+5. Sign in with your Microsoft account when prompted
+6. Grant the requested permissions
+7. Once complete, you'll be redirected back to Jamie
+
+![Outlook](/images/outlook.png)
+
+That's it! Jamie will now sync your upcoming meetings and send you reminders when it's time to start recording.
+
+> **Tip:** If you have multiple calendars in your Microsoft account, you can select which ones to sync by selecting the calendars and pressing **Apply**. The system will schedule those callendars to sync.
+
+![Outlook Connected](/images/outlook-connected.png)
+
+## Connecting with a Microsoft Entra (Enterprise) Account
+
+If your organization uses Microsoft 365 with Entra ID (formerly Azure AD), you may need administrator approval before connecting your calendar.
+
+<img
+  src="/images/microsoft-entra.png"
+  alt="Microsoft Entra"
+  title="Microsoft Entra"
+  className="mx-auto"
+  style={{ width:"42%" }}
+/>
+
+### What You'll See
+
+When you try to connect your calendar, Microsoft may show a message saying:
+
+> "Approval required"\
+> "This app requires your admin's approval... Enter justification for requesting this app."
+
+This happens because your organization has policies that require an administrator to review and approve third-party applications before employees can use them.
+
+### What to Do
+
+1. **Submit the consent request** — When you see the admin approval screen, enter justification and click "Request approval" (if available). This sends a notification to your IT administrators.
+2. **Contact your IT administrator** — Let them know you'd like to use Jamie and that the app is waiting for approval in Microsoft Entra.
+3. **Wait for approval** — Once an administrator approves Jamie, you'll be able to connect your calendar by following the standard steps above.
+
+### For Administrators
+
+To approve Jamie for your organization:
+
+1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com)
+2. Go to **Identity** → **Applications** → **Enterprise applications**
+3. Look for pending admin consent requests, or search for "Jamie"
+4. Review the requested permissions (see details below)
+5. Click **Grant admin consent** to approve Jamie for your organization
+
+![Microsoft Permissions Admin](/images/microsoft-permissions-admin.png)
+
+Once approved, users in your organization will be able to connect their calendars without needing individual approval.
+
+## Permissions We Request
+
+When you connect your Microsoft calendar, Jamie requests the following permissions. Here's what each one does and why we need it:
+
+### Required Permissions
+
+| Permission  | What it does                           | Why Jamie needs it                                        |
+| ----------- | -------------------------------------- | --------------------------------------------------------- |
+| `openid`    | Standard sign-in authentication        | Required to securely sign you in                          |
+| `profile`   | Access your name and basic profile     | Shows your name in Jamie and personalizes your experience |
+| `email`     | Access your email address              | Identifies your account and enables sharing features      |
+| `User.Read` | Read your basic profile from Microsoft | Retrieves your account information during sign-in         |
+
+### Calendar Integration Permissions
+
+These permissions are requested when you enable calendar integration:
+
+| Permission       | What it does                            | Why Jamie needs it                                                                    |
+| ---------------- | --------------------------------------- | ------------------------------------------------------------------------------------- |
+| `Calendars.Read` | Read your calendar events               | Detects upcoming meetings, sends smart reminders, and auto-populates meeting titles   |
+| `People.Read`    | Access your frequently contacted people | Improves speaker identification by recognizing meeting participants                   |
+| `Contacts.Read`  | Read your contacts                      | Enhances speaker memory by matching voices to people you know                         |
+| `offline_access` | Stay connected in the background        | Keeps your calendar synced and up-to-date without requiring you to sign in repeatedly |
+
+### About Speaker Memory
+
+Jamie uses `People.Read` and `Contacts.Read` to power **Speaker Memory** — a feature that helps Jamie recognize who's speaking in your meetings. By accessing your contacts and frequently contacted people, Jamie can:
+
+- Automatically identify speakers based on meeting attendees
+- Remember speaker names across multiple meetings
+- Provide more accurate meeting notes with proper speaker attribution
+
+This makes your meeting notes significantly more useful, especially for recurring meetings with the same participants.
+
+### What Data Does Jamie Store?
+
+Jamie only stores the information needed to provide you with a great experience:
+
+- **Event details:** Title, time, location, description and conferencing links (so you can join meetings directly from Jamie). Sometimes, description of the event provides important informaton for speaker identification and other related metadata.
+- **Attendee information:** Names and emails of meeting participants (for speaker identification)
+- **Contact information:** Names, emails, and profile photos (for speaker memory)
+
+## On-Premise Exchange Users
+
+If your organization uses an on-premise Exchange server (or a hybrid environment where mailboxes haven't been fully migrated to Exchange Online), you may see the following error when trying to connect your calendar:
+
+> "Resource not found: The mailbox is either inactive, soft-deleted, or is hosted on-premise."
+
+### Why This Happens
+
+Jamie uses the Microsoft Graph API to access your calendar. This API only works with mailboxes hosted in Exchange Online (Microsoft 365). If your mailbox is hosted on an on-premise Exchange server, the Graph API cannot reach it.
+
+### What Are Your Options?
+
+1. **Migrate to Exchange Online** — If your organization migrates your mailbox to Exchange Online (Microsoft 365), Jamie's calendar integration will work automatically.
+2. **Hybrid environment with Exchange Web Services (EWS)** — In some cases, organizations with hybrid deployments can enable access through Exchange Web Services. This requires additional configuration on your organization's side. Please contact our support team if you'd like to explore this option.
+
+For more technical details about on-premise requirements, see Microsoft's documentation:\
+[On-Premises Architectural Requirements for the REST API](https://techcommunity.microsoft.com/blog/exchange/on-premises-architectural-requirements-for-the-rest-api/605609)

@@ -9,6 +9,15 @@
   },
   "favicon": "/images/jamie_favicon.svg",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://www.meetjamie.ai/blog"
+        }
+      ]
+    },
     "anchors": [
       {
         "anchor": "Documentation",
@@ -18,30 +27,61 @@
             "group": "Getting started",
             "pages": [
               "pages/getting_started/quickstart",
-              "pages/getting_started/connect_calendar",
-              "pages/getting_started/headphones",
-              "pages/getting_started/identify_speaker",
+              "pages/getting_started/recorder",
+              "pages/getting_started/summary",
               "pages/getting_started/edit_notes",
+              "pages/getting_started/identify_speaker",
               "pages/getting_started/templates",
+              {
+                "group": "Calendar",
+                "pages": [
+                  "pages/getting_started/connect_calendar",
+                  "documentation/getting-started/calendar/outlook"
+                ]
+              },
               "pages/getting_started/tags",
-              "pages/getting_started/tasks",
-              "pages/getting_started/integrations",
-              "pages/getting_started/copy_paste",
               "pages/getting_started/ask_ai",
               "pages/getting_started/mobile_app",
+              "documentation/getting-started/team-sharing",
+              "documentation/getting-started/notifications",
               "pages/getting_started/recording_consent"
             ]
           },
           {
-            "group": "Webhooks",
+            "group": "Integrations",
             "pages": [
-              "pages/webhooks/webhooks",
-              "pages/webhooks/getting_started",
-              "pages/webhooks/maintenance",
-              "pages/webhooks/security_verification",
-              "pages/webhooks/delivery_retries",
-              "pages/webhooks/make.com_integration",
-              "pages/webhooks/troubleshooting"
+              "documentation/integrations/integrations",
+              "pages/getting_started/integrations-copied-1",
+              "pages/getting_started/integrations-copied-2",
+              "pages/getting_started/integrations-copied-3",
+              "pages/getting_started/integrations-copied-4",
+              "pages/getting_started/integrations",
+              "pages/getting_started/integrations-copied-5",
+              "pages/getting_started/integrations-copied-6"
+            ]
+          },
+          {
+            "group": "Developers",
+            "pages": [
+              {
+                "group": "Webhooks",
+                "pages": [
+                  "pages/webhooks/webhooks",
+                  "pages/webhooks/getting_started",
+                  "pages/webhooks/maintenance",
+                  "pages/webhooks/security_verification",
+                  "pages/webhooks/delivery_retries",
+                  "pages/webhooks/make.com_integration",
+                  "pages/webhooks/troubleshooting"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Billing & Pricing",
+            "pages": [
+              "pages/faqs_troubleshooting/subscriptions_plans",
+              "pages/billing_pricing/invoices"
             ]
           },
           {
@@ -49,29 +89,12 @@
             "pages": [
               "pages/faqs_troubleshooting/data",
               "pages/faqs_troubleshooting/meeting_stuck",
-              "pages/faqs_troubleshooting/subscriptions_plans",
               "pages/faqs_troubleshooting/language_support"
-            ]
-          },
-          {
-            "group": "Billing & Pricing",
-            "pages": [
-              "pages/billing_pricing/pricing_plans",
-              "pages/billing_pricing/invoices"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Blog",
-          "href": "https://www.meetjamie.ai/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/images/jamie_dark.png",

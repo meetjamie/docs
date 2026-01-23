@@ -1,0 +1,67 @@
+---
+title: "Salesforce"
+description: "Attach meeting notes to Salesforce records"
+icon: "salesforce"
+---
+
+Connect Jamie to Salesforce to log meeting notes as Notes on Leads, Contacts, Opportunities, and Accounts.
+
+<Info>
+  Salesforce integration requires a **Pro**, **Team**, or **Enterprise** plan.
+</Info>
+
+## Admin Setup (One-Time)
+
+A Salesforce admin must complete this setup before users can connect:
+
+1. Go to **Settings → Integrations → Salesforce** and click **Connect Salesforce**
+2. Log in with an admin account and click **Allow**
+3. In Salesforce, go to **Setup → Apps → Connected Apps → Manage Connected Apps**
+4. Find **Jamie** and click **Install**
+5. Click **Edit Policies**
+6. Under **Permitted Users**, select **All users may self-authorize**
+7. Click **Save**
+
+<Warning>
+  Your Salesforce org must have the **Notes** feature enabled. Verify at **Setup → Feature Settings → Sales → Notes Settings**.
+</Warning>
+
+## User Setup
+
+After admin setup, each user can connect:
+
+1. Go to **Settings → Integrations → Salesforce**
+2. Click **Connect Salesforce**
+3. Log in with your Salesforce account and click **Allow**
+
+## Sending Meetings to Salesforce
+
+![Integrations Card](/images/integrations-card.png)
+
+1. Open a meeting in Jamie
+2. Click the **Share** button
+3. Select **Send to Salesforce**
+4. Search for a Lead, Contact, Opportunity, or Account
+5. Click **Send**
+
+Your meeting notes appear in the **Notes** section of the selected record.
+
+<Info>
+  If you don't see the Notes section on a record, ask your admin to add it via **Setup → User Interface → Lightning App Builder**.
+</Info>
+
+## Settings
+
+![Salesforce Settings](/images/salesforce-settings.png)
+
+Configure what content to include:
+
+| Option         | Description                          |
+| -------------- | ------------------------------------ |
+| **Summary**    | Meeting notes with executive summary |
+| **Transcript** | Full transcript                      |
+| **Tasks**      | Action items from the meeting        |
+
+<Info>
+  At least one option must be enabled.
+</Info>

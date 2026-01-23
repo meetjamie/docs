@@ -1,0 +1,146 @@
+---
+title: "Using the Recorder"
+description: "How to record your meetings with Jamie"
+icon: "circle-dot"
+---
+
+Jamie's recorder captures your meetings and automatically generates summaries, transcripts, and action items. This guide explains how to use the recorder from start to finish.
+
+## Starting a Recording
+
+There are several ways to start recording a meeting with Jamie:
+
+<AccordionGroup>
+  <Accordion title="Automatic Detection" defaultOpen="true" icon="wand-magic-sparkles">
+    When Jamie detects that you've joined a video call (e.g. Zoom, Google Meet, Microsoft Teams, etc.), a notification will appear asking if you'd like to start recording.
+
+    ![Meeting Reminder](/images/meeting-reminder.png)
+
+    Simply click **Start Jamie** to begin recording.
+
+    <Info>
+      You can customize which apps trigger automatic detection in your **Notifications**  settings, or disable this feature entirely.
+    </Info>
+  </Accordion>
+  <Accordion title="Manual Start from the app" defaultOpen icon="bars">
+    You can start a recording at any time from the navigation bar within the app:
+
+    {/* TODO: Insert screenshot of the menu bar/system tray menu showing Start Recording option */}
+
+    <img
+      src="/images/start_meeting_manually.png"
+      alt="Start recording from menu bar"
+      title="Start recording from menu bar"
+      className="mx-auto"
+      style={{ width:"52%" }}
+    />
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  Before starting, make sure your preferred microphone is connected. Jamie will use your default microphone automatically.
+</Tip>
+
+## During the Recording
+
+Once you start recording, Jamie provides several features to help you during your meeting.
+
+### The Recorder Widget
+
+When recording, a compact floating widget appears on your screen. You can drag it anywhere to reposition it.
+
+{/* TODO: Insert screenshot of the compact recorder widget */}
+
+<img
+  src="/images/recorder.png"
+  alt="Compact recorder widget"
+  title="Compact recorder widget"
+  className="mx-auto"
+  style={{ width:"32%" }}
+/>
+
+Click on the widget (not the stop button) to expand it and access the full meeting view.
+
+### The Meeting View
+
+The expanded meeting view gives you access to all features during your recording.
+
+<img
+  src="/images/scratchpad.png"
+  alt="Scratchpad"
+  title="Scratchpad"
+  className="mx-auto"
+  style={{ width:"51%" }}
+/>
+
+{/* TODO: Insert screenshot of the expanded meeting view showing the full interface */}
+
+### Changing Your Microphone
+
+To switch your microphone mid-meeting, you can just click on the **microphone icon** in the recorder controls to open the microphone selector dropdown and choose a different microphone.
+
+{/* TODO: Insert screenshot of the microphone dropdown open */}
+
+<img
+  src="/images/change_mic.png"
+  alt="Change Mic"
+  title="Change Mic"
+  className="mx-auto"
+  style={{ width:"60%" }}
+/>
+
+Your audio source will switch seamlessly without interrupting the recording.
+
+### Using the Scratchpad
+
+During a live meeting, the **Scratchpad** tab is selected by default. Use it to write private notes - perfect for jotting down quick thoughts, noting important points to follow up on, or writing reminders for yourself. Those notes will not be incorporated in the summary created by Jamie but are standalone.
+
+<img
+  src="/images/scratchpad.png"
+  alt="Scratchpad"
+  title="Scratchpad"
+  className="mx-auto"
+  style={{ width:"51%" }}
+/>
+
+{/* TODO: Insert screenshot of the scratchpad tab with some example notes */}
+
+<Info>
+  Your scratchpad notes are **private by default** and won't be included when you share the meeting summary with others.
+</Info>
+
+{/* TODO: Insert screenshot of the live transcript tab showing real-time transcription */}
+
+## Stopping the Recording
+
+When your meeting ends, stop the recording directly from the recorder widget or, if you have the recorder expanded to the full meeting view, from the bottom recorder bar where you will find a red **Stop** button.
+
+{/* TODO: Insert screenshot highlighting the stop button in the recorder controls */}
+
+<Warning>
+  If you stop a recording that's less than 5 minutes long, Jamie will show a warning. Very short recordings may not generate useful summaries. You can choose to stop anyway or continue recording.
+</Warning>
+
+### What if you close Jamie during the meeting?
+
+If you accidentally close Jamie during a recording, don't worry - Jamie will ask for confirmation before stopping. If you quit Jamie, the current recording will be saved.
+
+## After the Recording
+
+Once you stop recording, Jamie immediately begins processing your meeting.
+
+{/* TODO: Insert screenshot of the offline recording view with the "Recording in offline mode" message */}
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="No Microphones Detected" icon="microphone-slash">
+    Make sure your microphone is connected and recognized by your computer. Try disconnecting and reconnecting it, then refresh the microphone list.
+  </Accordion>
+  <Accordion title="Recording Won't Start" icon="circle-exclamation">
+    Check that Jamie has permission to access your microphone. On Mac, go to **System Preferences \> Privacy & Security \> Microphone** and ensure Jamie is enabled.
+  </Accordion>
+  <Accordion title="Meeting Not Detected Automatically" icon="bell-slash">
+    Verify that automatic meeting detection is enabled in your settings, and that the video call app you're using isn't in your disallowed apps list.
+  </Accordion>
+</AccordionGroup>
