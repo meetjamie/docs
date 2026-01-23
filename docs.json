@@ -9,6 +9,15 @@
   },
   "favicon": "/images/jamie_favicon.svg",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Blog",
+          "icon": "newspaper",
+          "href": "https://www.meetjamie.ai/blog"
+        }
+      ]
+    },
     "anchors": [
       {
         "anchor": "Documentation",
@@ -18,18 +27,30 @@
             "group": "Getting started",
             "pages": [
               "pages/getting_started/quickstart",
-              "pages/getting_started/connect_calendar",
-              "pages/getting_started/headphones",
-              "pages/getting_started/identify_speaker",
+              "pages/getting_started/recorder",
+              "pages/getting_started/summary",
               "pages/getting_started/edit_notes",
+              "pages/getting_started/identify_speaker",
               "pages/getting_started/templates",
+              "pages/getting_started/connect_calendar",
               "pages/getting_started/tags",
-              "pages/getting_started/tasks",
-              "pages/getting_started/integrations",
-              "pages/getting_started/copy_paste",
               "pages/getting_started/ask_ai",
               "pages/getting_started/mobile_app",
+              "documentation/getting-started/notifications",
+              "documentation/getting-started/team-sharing",
               "pages/getting_started/recording_consent"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "pages/getting_started/integrations-copied-1",
+              "pages/getting_started/integrations-copied-2",
+              "pages/getting_started/integrations-copied-3",
+              "pages/getting_started/integrations-copied-4",
+              "pages/getting_started/integrations",
+              "pages/getting_started/integrations-copied-5",
+              "pages/getting_started/integrations-copied-6"
             ]
           },
           {
@@ -62,16 +83,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Blog",
-          "href": "https://www.meetjamie.ai/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/images/jamie_dark.png",
