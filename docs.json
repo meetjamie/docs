@@ -83,6 +83,7 @@
             "group": "Billing & Pricing",
             "pages": [
               "pages/faqs_troubleshooting/subscriptions_plans",
+              "pages/billing_pricing/apple_subscription",
               "pages/billing_pricing/invoices"
             ]
           },
