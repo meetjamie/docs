@@ -106,9 +106,14 @@ jamie-delivery: 7893456789012345678
     "created": 1701234567
   },
   "data": {
+    "user": {
+      "id": "user-456",
+      "email": "sarah.johnson@example.com"
+    },
     "summary": {
       "markdown": "# Meeting Summary\n\n## Key Discussion Points\n• Reviewed Q4 roadmap...",
-      "html": "<h1>Meeting Summary</h1><h2>Key Discussion Points</h2><ul><li>Reviewed Q4 roadmap...</li></ul>"
+      "html": "<h1>Meeting Summary</h1><h2>Key Discussion Points</h2><ul><li>Reviewed Q4 roadmap...</li></ul>",
+      "short": "Q4 product planning meeting covering roadmap, mobile redesign, and user research budget allocation."
     },
     "transcript": [
       {
@@ -125,11 +130,13 @@ jamie-delivery: 7893456789012345678
     "participants": [
       {
         "id": "1",
-        "name": "Sarah Johnson"
+        "name": "Sarah Johnson",
+        "email": "sarah.johnson@example.com"
       },
       {
         "id": "2",
-        "name": "Alex Chen"
+        "name": "Alex Chen",
+        "email": "alex.chen@example.com"
       }
     ],
     "event": {
@@ -141,11 +148,26 @@ jamie-delivery: 7893456789012345678
     "tasks": [
       {
         "content": "Finalize technical specifications for mobile app redesign",
-        "completed": false
+        "completed": false,
+        "assignee": {
+          "name": "Alex Chen",
+          "email": "alex.chen@example.com"
+        }
       },
       {
         "content": "Schedule follow-up meeting for next week",
-        "completed": false
+        "completed": false,
+        "assignee": null
+      }
+    ],
+    "tags": [
+      {
+        "name": "Product",
+        "color": "#4A90D9"
+      },
+      {
+        "name": "Planning",
+        "color": "#50C878"
       }
     ]
   }
@@ -160,10 +182,18 @@ jamie-delivery: 7893456789012345678
 - `event` (string): The event type (`meeting.completed`)
 - `created` (number): Unix timestamp (seconds) when the webhook was created
 
+#### `data.user`
+
+The Jamie user who recorded the meeting:
+
+- `id` (string): Unique identifier for the user
+- `email` (string): Email address of the user
+
 #### `data.summary`
 
 - `markdown` (string): Meeting summary formatted as Markdown with speaker names highlighted
 - `html` (string): Meeting summary formatted as HTML, ready to display
+- `short` (string): A brief one-line summary of the meeting
 
 #### `data.transcript`
 
@@ -179,6 +209,7 @@ Array of meeting participants:
 
 - `id` (string): Unique identifier for the participant
 - `name` (string): Display name of the participant
+- `email` (string | null): Email address of the participant (if available)
 
 #### `data.event`
 
@@ -195,3 +226,13 @@ Array of action items extracted from the meeting:
 
 - `content` (string): The task description
 - `completed` (boolean): Whether the task is marked as completed
+- `assignee` (object | null): The person assigned to this task (if any)
+  - `name` (string | null): Name of the assignee
+  - `email` (string | null): Email address of the assignee (if available)
+
+#### `data.tags`
+
+Array of tags (labels) applied to the meeting:
+
+- `name` (string): The tag name
+- `color` (string): The tag color as a hex string (e.g., `#4A90D9`)
