@@ -143,7 +143,27 @@ jamie-delivery: 7893456789012345678
       "id": "calendar-event-123",
       "title": "Q4 Planning Meeting",
       "scheduledTime": "2024-11-27T14:00:00.000Z",
-      "endTime": "2024-11-27T15:00:00.000Z"
+      "endTime": "2024-11-27T15:00:00.000Z",
+      "attendees": [
+        {
+          "name": "Sarah Johnson",
+          "email": "sarah.johnson@example.com",
+          "responseStatus": "accepted",
+          "organizer": true
+        },
+        {
+          "name": "Alex Chen",
+          "email": "alex.chen@example.com",
+          "responseStatus": "accepted",
+          "organizer": false
+        },
+        {
+          "name": "Jamie Martinez",
+          "email": "jamie.martinez@example.com",
+          "responseStatus": "tentative",
+          "organizer": false
+        }
+      ]
     },
     "tasks": [
       {
@@ -205,7 +225,7 @@ Array of transcript segments:
 
 #### `data.participants`
 
-Array of meeting participants:
+Array of meeting participants detected in the transcript (people who spoke):
 
 - `id` (string): Unique identifier for the participant
 - `name` (string): Display name of the participant
@@ -213,12 +233,21 @@ Array of meeting participants:
 
 #### `data.event`
 
-Calendar event information:
+Calendar event information (if the meeting is linked to a calendar event):
 
 - `id` (string | null): Calendar event ID (if available)
-- `title` (string): Meeting title
+- `title` (string): Calendar event title (falls back to meeting title if no calendar event is linked)
 - `scheduledTime` (string): ISO 8601 formatted start time
 - `endTime` (string | null): ISO 8601 formatted end time (if available)
+- `attendees` (array): List of people invited to the calendar event (empty if no calendar event is linked)
+  - `name` (string): Name of the attendee
+  - `email` (string): Email address of the attendee
+  - `responseStatus` (string | null): RSVP status — one of `needsAction`, `declined`, `tentative`, or `accepted`
+  - `organizer` (boolean): Whether this attendee is the organizer of the event
+
+<Info>
+  **Participants vs. Attendees:** `participants` are people who actually **spoke** during the meeting (detected from the transcript). `attendees` are people who were **invited** to the calendar event — they may or may not have attended or spoken.
+</Info>
 
 #### `data.tasks`
 
